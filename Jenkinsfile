@@ -53,7 +53,7 @@ node {
     stage('build docker') {
         sh "cp -R src/main/docker build/"
         sh "cp build/libs/*.war build/docker/"
-        dockerImage = docker.build('docker-login/ecommerce', 'build/docker')
+        dockerImage = docker.build('docker-login/ecommerce-monolith', 'build/docker')
     }
 
     stage('publish docker') {
