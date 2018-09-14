@@ -1,0 +1,40 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.xebialabs.ecommerce",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "5.3.1",
+    "applicationType": "monolith",
+    "baseName": "eCommerce",
+    "packageName": "com.xebialabs.ecommerce",
+    "packageFolder": "com/xebialabs/ecommerce",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true,
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "gradle",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "MzViOTBhYmE0ZjY1OTQzM2U3Y2U5YTRmMmIyODMxNDBjMzhlMDdkYzQ0ZDE4ODc0MzNjOGIxYzY3YjFiMTc1Y2EzZDQ3Y2VlZmJjYzUzNzkxYzhkMjcxMWRkNmVjMzQ2NzVhZTYwZWE4ZDY3ODc0OGYyMjczMWFmZmVmYjA4ZTk=",
+    "clientFramework": "react",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [
+      "protractor"
+    ],
+    "jhiPrefix": "jhi",
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "en",
+      "nl"
+    ]
+  }
+}
