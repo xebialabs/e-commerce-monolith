@@ -1,0 +1,92 @@
+apiVersion: xl-deploy/v1beta1
+kind: Applications
+spec:
+- name: ecommerce-monolith
+  type: core.Directory
+  children:
+    - name: ecommerce-app-service
+      type: udm.Application
+      children:
+      - name: 'v1.0'
+        type: udm.DeploymentPackage
+        deployables:
+        - name: ecommerce-store-app
+          type: aws.ecs.ServiceSpec
+          serviceName: ecommerce-store-app
+          desiredCount: 1
+          launchType: FARGATE
+          networkMode: awsvpc
+          assignPublicIp: true
+          executionRole: 'arn:aws:iam::932770550094:role/ecsTaskExecutionRole'
+          cpu: 1024
+          memory: 2048
+          subnets:
+          - 'Name:{{username}}-ecommerce-ecs-subnet-ipv4-az-1a'
+          - 'Name:{{username}}-ecommerce-ecs-subnet-ipv4-az-1b'
+          securityGroups:
+          - 'Name:{{username}}-ecommerce-ecs-security-group'
+          containerDefinitions:
+          - name: ecommerce-store-app
+            containerName: ecommerce-store-app
+            type: aws.ecs.ContainerDefinitionSpec
+            image: xebialabsunsupported/ecommerce-monolith
+            cpu: 1024
+            softMemoryLimit: 768
+            portMappings:
+            - name: port-mapping-8080
+              type: aws.ecs.PortSpec
+              containerPort: 8080
+            logConfiguration:
+            - name: cloudwatch-log-registry
+              type: aws.ecs.LogConfigurationSpec
+              logDriver: awslogs
+              options:
+                awslogs-group: "/ecs/ecommerce"
+                awslogs-region: "{{region}}"
+                awslogs-stream-prefix: "ecs"
+            environment:
+              SPRING_PROFILES_ACTIVE: prod,swagger
+              SPRING_DATASOURCE_URL: jdbc:mysql://ecommerce-store-db:3306/ecommerce?useUnicode=true&characterEncoding=utf8&useSSL=false
+              JHIPSTER_SLEEP: 10 # gives time for the database to boot before the application
+            #   JAVA_OPTS:  -Xmx256m -Xms256m
+
+        - name: ecommerce-store-db
+          type: aws.ecs.ServiceSpec
+          serviceName: ecommerce-store-db
+          desiredCount: 1
+          launchType: FARGATE
+          networkMode: awsvpc
+          assignPublicIp: true
+          executionRole: 'arn:aws:iam::932770550094:role/ecsTaskExecutionRole'
+          cpu: 1024
+          memory: 2048
+          subnets:
+          - 'Name:{{username}}-ecommerce-ecs-subnet-ipv4-az-1a'
+          - 'Name:{{username}}-ecommerce-ecs-subnet-ipv4-az-1b'
+          securityGroups:
+          - 'Name:{{username}}-ecommerce-ecs-security-group'
+          containerDefinitions:
+          - name: ecommerce-store-db
+            containerName: ecommerce-store-db
+            type: aws.ecs.ContainerDefinitionSpec
+            image: mysql:5.7.20
+            cpu: 1024
+            softMemoryLimit: 768
+            logConfiguration:
+            - name: cloudwatch-log-registry
+              type: aws.ecs.LogConfigurationSpec
+              logDriver: awslogs
+              options:
+                awslogs-group: "/ecs/ecommerce"
+                awslogs-region: "{{region}}"
+                awslogs-stream-prefix: "ecs"
+            command:
+            - mysqld
+            - --lower_case_table_names=1
+            - --skip-ssl
+            - --character_set_server=utf8mb4
+            - --explicit_defaults_for_timestamp
+            environment:
+              MYSQL_USER: root
+              MYSQL_ALLOW_EMPTY_PASSWORD: yes
+              MYSQL_DATABASE: ecommerce

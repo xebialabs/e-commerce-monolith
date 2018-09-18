@@ -1,0 +1,66 @@
+apiVersion: xl-deploy/v1beta1
+kind: Applications
+spec:
+- name: ecommerce-monolith
+  type: core.Directory
+  children:
+    - name: ecommerce-monolith-ecs-fargate-cluster
+      type: udm.Application
+      children:
+      - name: '1.0'
+        type: udm.DeploymentPackage
+        deployables:
+# ECS cluster (no instances, FARGATE only)
+        - name: ecommerce-monolith-ecs-cluster
+          type: aws.ecs.ClusterSpec
+          clusterName: '{{username}}-ecommerce-monolith-ecs-cluster'
+          region: '{{region}}'
+
+# Networking
+        - name: ecommerce-monolith-ecs-vpc
+          type: aws.vpc.VPCSpec
+          vpcName: '{{username}}-ecommerce-monolith-ecs-vpc'
+          region: '{{region}}'
+          cidrBlock: 10.0.0.0/16
+          createInternetGateway: true
+          internetGatewayName: '{{username}}-ecommerce-monolith-ecs-igw'
+        - name: ecommerce-monolith-ecs-subnet-ipv4-az-1a
+          type: aws.vpc.SubnetSpec
+          subnetName: '{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1a'
+          region: '{{region}}'
+          availabilityZone: '{{region}}a'
+          vpc: 'Name:{{username}}-ecommerce-monolith-ecs-vpc'
+          cidrBlock: 10.0.0.0/24
+        - name: ecommerce-monolith-ecs-subnet-ipv4-az-1b
+          type: aws.vpc.SubnetSpec
+          subnetName: '{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
+          region: '{{region}}'
+          availabilityZone: '{{region}}b'
+          vpc: 'Name:{{username}}-ecommerce-monolith-ecs-vpc'
+          cidrBlock: 10.0.1.0/24
+        - name: ecommerce-monolith-ecs-route-table
+          type: aws.vpc.RouteTableSpec
+          routeTableName: '{{username}}-ecommerce-monolith-ecs-route-table'
+          region: '{{region}}'
+          vpc: 'Name:{{username}}-ecommerce-monolith-ecs-vpc'
+          is_main: true
+          subnets:
+          - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1a'
+          - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
+          routes:
+          - name: route1
+            type: aws.vpc.RouteSpec
+            ipv4Address: 0.0.0.0/0
+            gatewayId: 'Name:{{username}}-ecommerce-monolith-ecs-igw'
+        - name: ecommerce-monolith-ecs-security-group
+          type: aws.vpc.SecurityGroupSpec
+          securityGroupName: '{{username}}-ecommerce-monolith-ecs-security-group'
+          description: Created by XL Deploy
+          region: '{{region}}'
+          vpc: 'Name:{{username}}-ecommerce-monolith-ecs-vpc'
+          inboundRules:
+          - name: inbound
+            type: aws.vpc.SecurityGroupInboundRuleSpec
+            protocol: -1
+            portRange: 22
+            source: 0.0.0.0/0
