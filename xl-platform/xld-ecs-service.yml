@@ -21,10 +21,10 @@ spec:
           cpu: 1024
           memory: 2048
           subnets:
-          - 'Name:{{username}}-ecommerce-ecs-subnet-ipv4-az-1a'
-          - 'Name:{{username}}-ecommerce-ecs-subnet-ipv4-az-1b'
+          - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1a'
+          - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
           securityGroups:
-          - 'Name:{{username}}-ecommerce-ecs-security-group'
+          - 'Name:{{username}}-ecommerce-monolith-ecs-security-group'
           containerDefinitions:
           - name: ecommerce-store-app
             containerName: ecommerce-store-app
@@ -61,10 +61,10 @@ spec:
           cpu: 1024
           memory: 2048
           subnets:
-          - 'Name:{{username}}-ecommerce-ecs-subnet-ipv4-az-1a'
-          - 'Name:{{username}}-ecommerce-ecs-subnet-ipv4-az-1b'
+          - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1a'
+          - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
           securityGroups:
-          - 'Name:{{username}}-ecommerce-ecs-security-group'
+          - 'Name:{{username}}-ecommerce-monolith-ecs-security-group'
           containerDefinitions:
           - name: ecommerce-store-db
             containerName: ecommerce-store-db
