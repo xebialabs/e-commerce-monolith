@@ -244,6 +244,8 @@ dependencies {
     testCompile "org.hamcrest:hamcrest-library"
     testCompile "com.h2database:h2"
     liquibaseRuntime "com.h2database:h2"
+    compile "com.amazonaws:aws-java-sdk-ssm"
+    compile "org.springframework.cloud:spring-cloud-context"
     //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 

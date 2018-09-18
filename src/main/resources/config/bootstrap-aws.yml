@@ -1,0 +1,16 @@
+# ===================================================================
+# Spring Cloud Config bootstrap configuration for the "aws" profile
+# ===================================================================
+
+spring:
+    application:
+        name: eCommerce
+    cloud:
+        config:
+            fail-fast: true
+
+cloud:
+    aws:
+        stack:
+            name: eCommerce
+            auto: false

@@ -1,0 +1,34 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  applicationStackS3Bucket:
+    Type: String
+    Description: Name of the S3 bucket containing the application.template.yml template file
+    Default: ecommerce-mono-xl-1537280002606
+  eCommerceDBPassword:
+    Type: String
+    Description: Aurora master database password for eCommerce
+    NoEcho: true
+
+  shouldDeployService:
+    Type: String
+    Description: Should the ECS service be initialised
+    AllowedValues:
+        - true
+        - false
+    Default: false
+Resources:
+  eCommerce:
+    Type: 'AWS::CloudFormation::Stack'
+    Properties:
+      Parameters:
+        parentStackName: !Ref AWS::StackName
+        repositoryName: ecommerce-mono-xl/eCommerce
+        shouldDeployService: !Ref shouldDeployService
+        databasePassword: !Ref eCommerceDBPassword
+      TemplateURL: !Join [ '', [ 'https://s3.amazonaws.com/',!Ref applicationStackS3Bucket, '/eCommerce.template.yml'] ]
+
+Outputs:
+  LoadBalancerOutputeCommerce:
+    Description: The external DNS address of the load-balanancers
+    Value: !GetAtt eCommerce.Outputs.LoadBalancerOutput
+

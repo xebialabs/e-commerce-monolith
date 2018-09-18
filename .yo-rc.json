@@ -35,6 +35,57 @@
     "languages": [
       "en",
       "nl"
-    ]
+    ],
+    "aws": {
+      "apps": [
+        {
+          "baseName": "eCommerce",
+          "performance": "low",
+          "fargate": {
+            "CPU": "1024",
+            "memory": "2GB",
+            "taskCount": 1
+          },
+          "database": {
+            "size": "db.t2.small",
+            "supportedEngines": [
+              "mariadb",
+              "mysql"
+            ],
+            "instances": 1
+          },
+          "scaling": "low",
+          "dbType": "mysql",
+          "auroraEngine": "aurora-mysql",
+          "auroraFamily": "aurora-mysql5.7",
+          "auroraClusterParameterGroupName": "default.aurora-mysql5.7",
+          "auroraDbParam": "sql_mode: IGNORE_SPACE"
+        }
+      ],
+      "vpc": {
+        "id": "vpc-00da496ce23cdde8d",
+        "cidr": "10.0.0.0/16",
+        "elbSubnets": [
+          "subnet-0e7a5c685e8a16b25",
+          "subnet-04798241011ba5293"
+        ],
+        "appSubnets": [
+          "subnet-0e7a5c685e8a16b25",
+          "subnet-04798241011ba5293"
+        ],
+        "appSubnetsLaunchWithPublicIP": false
+      },
+      "region": "eu-west-1",
+      "cloudFormationName": "ecommerce-mono-xl",
+      "s3BucketName": "ecommerce-mono-xl-1537280002606",
+      "s3bucketLocation": "/ecommerce-mono-xl-1537280002606",
+      "s3BaseTemplate": {
+        "ETag": "\"a77f64072e619a6f119702710e8e93ff\"",
+        "Location": "https://ecommerce-mono-xl-1537280002606.s3.amazonaws.com/base.template.yml",
+        "key": "base.template.yml",
+        "Key": "base.template.yml",
+        "Bucket": "ecommerce-mono-xl-1537280002606"
+      }
+    }
   }
 }
