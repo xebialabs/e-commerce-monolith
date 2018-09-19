@@ -76,15 +76,15 @@
         "appSubnetsLaunchWithPublicIP": false
       },
       "region": "eu-west-1",
-      "cloudFormationName": "ecommerce-mono-xl",
-      "s3BucketName": "ecommerce-mono-xl-1537280002606",
-      "s3bucketLocation": "/ecommerce-mono-xl-1537280002606",
+      "cloudFormationName": "ecommerce",
+      "s3BucketName": "ecommerce-1537364944346",
+      "s3bucketLocation": "/ecommerce-1537364944346",
       "s3BaseTemplate": {
-        "ETag": "\"a77f64072e619a6f119702710e8e93ff\"",
-        "Location": "https://ecommerce-mono-xl-1537280002606.s3.amazonaws.com/base.template.yml",
+        "ETag": "\"fe8a227010eb6778f8b1285081b3940c\"",
+        "Location": "https://ecommerce-1537364944346.s3.amazonaws.com/base.template.yml",
         "key": "base.template.yml",
         "Key": "base.template.yml",
-        "Bucket": "ecommerce-mono-xl-1537280002606"
+        "Bucket": "ecommerce-1537364944346"
       }
     }
   }
