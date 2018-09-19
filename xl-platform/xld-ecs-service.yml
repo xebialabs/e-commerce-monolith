@@ -89,4 +89,4 @@ spec:
             environment:
               MYSQL_USER: root
               MYSQL_ALLOW_EMPTY_PASSWORD: yes
-              MYSQL_DATABASE: ecommerce
+              MYSQL_DATABASE: store
