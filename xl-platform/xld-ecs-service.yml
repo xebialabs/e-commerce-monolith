@@ -18,8 +18,8 @@ spec:
           networkMode: awsvpc
           assignPublicIp: true
           executionRole: 'arn:aws:iam::932770550094:role/ecsTaskExecutionRole'
-          cpu: 1024
-          memory: 2048
+          cpu: 2048
+          memory: 4096
           subnets:
           - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1a'
           - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
@@ -46,26 +46,27 @@ spec:
                 awslogs-stream-prefix: "ecs"
             environment:
               SPRING_PROFILES_ACTIVE: prod,swagger
-              SPRING_DATASOURCE_URL: jdbc:mysql://ecommerce-store-db:3306/ecommerce?useUnicode=true&characterEncoding=utf8&useSSL=false
+              SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/store?useUnicode=true&characterEncoding=utf8&useSSL=false
               JHIPSTER_SLEEP: 10 # gives time for the database to boot before the application
             #   JAVA_OPTS:  -Xmx256m -Xms256m
 
-        - name: ecommerce-store-db
-          type: aws.ecs.ServiceSpec
-          serviceName: ecommerce-store-db
-          desiredCount: 1
-          launchType: FARGATE
-          networkMode: awsvpc
-          assignPublicIp: true
-          executionRole: 'arn:aws:iam::932770550094:role/ecsTaskExecutionRole'
-          cpu: 1024
-          memory: 2048
-          subnets:
-          - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1a'
-          - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
-          securityGroups:
-          - 'Name:{{username}}-ecommerce-monolith-ecs-security-group'
-          containerDefinitions:
+        # - name: ecommerce-store-db
+        #   type: aws.ecs.ServiceSpec
+        #   serviceName: ecommerce-store-db
+        #   desiredCount: 1
+        #   launchType: FARGATE
+        #   networkMode: awsvpc
+        #   assignPublicIp: true
+        #   executionRole: 'arn:aws:iam::932770550094:role/ecsTaskExecutionRole'
+        #   cpu: 1024
+        #   memory: 2048
+        #   subnets:
+        #   - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1a'
+        #   - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
+        #   securityGroups:
+        #   - 'Name:{{username}}-ecommerce-monolith-ecs-security-group'
+        #   containerDefinitions:
+        # For now deploy in single container to use DB in localhost
           - name: ecommerce-store-db
             containerName: ecommerce-store-db
             type: aws.ecs.ContainerDefinitionSpec
