@@ -80,6 +80,11 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
       proxy: {
         target: 'http://localhost:9060',
         ws: true
+      },
+      socket: {
+        clients: {
+          heartbeatTimeout: 60000
+        }
       }
     }, {
       reload: false

@@ -16,18 +16,18 @@ import { IProductOrder } from 'app/shared/model/product-order.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface IProductOrderUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IProductOrderUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface IProductOrderUpdateState {
   isNew: boolean;
-  customerId: number;
+  customerId: string;
 }
 
 export class ProductOrderUpdate extends React.Component<IProductOrderUpdateProps, IProductOrderUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      customerId: 0,
+      customerId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -73,8 +73,8 @@ export class ProductOrderUpdate extends React.Component<IProductOrderUpdateProps
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="eCommerceApp.productOrder.home.createOrEditLabel">
-              <Translate contentKey="eCommerceApp.productOrder.home.createOrEditLabel">Create or edit a ProductOrder</Translate>
+            <h2 id="storeApp.productOrder.home.createOrEditLabel">
+              <Translate contentKey="storeApp.productOrder.home.createOrEditLabel">Create or edit a ProductOrder</Translate>
             </h2>
           </Col>
         </Row>
@@ -94,7 +94,7 @@ export class ProductOrderUpdate extends React.Component<IProductOrderUpdateProps
                 ) : null}
                 <AvGroup>
                   <Label id="placedDateLabel" for="placedDate">
-                    <Translate contentKey="eCommerceApp.productOrder.placedDate">Placed Date</Translate>
+                    <Translate contentKey="storeApp.productOrder.placedDate">Placed Date</Translate>
                   </Label>
                   <AvInput
                     id="product-order-placedDate"
@@ -109,7 +109,7 @@ export class ProductOrderUpdate extends React.Component<IProductOrderUpdateProps
                 </AvGroup>
                 <AvGroup>
                   <Label id="statusLabel">
-                    <Translate contentKey="eCommerceApp.productOrder.status">Status</Translate>
+                    <Translate contentKey="storeApp.productOrder.status">Status</Translate>
                   </Label>
                   <AvInput
                     id="product-order-status"
@@ -119,19 +119,19 @@ export class ProductOrderUpdate extends React.Component<IProductOrderUpdateProps
                     value={(!isNew && productOrderEntity.status) || 'COMPLETED'}
                   >
                     <option value="COMPLETED">
-                      <Translate contentKey="eCommerceApp.OrderStatus.COMPLETED" />
+                      <Translate contentKey="storeApp.OrderStatus.COMPLETED" />
                     </option>
                     <option value="PENDING">
-                      <Translate contentKey="eCommerceApp.OrderStatus.PENDING" />
+                      <Translate contentKey="storeApp.OrderStatus.PENDING" />
                     </option>
                     <option value="CANCELLED">
-                      <Translate contentKey="eCommerceApp.OrderStatus.CANCELLED" />
+                      <Translate contentKey="storeApp.OrderStatus.CANCELLED" />
                     </option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label id="codeLabel" for="code">
-                    <Translate contentKey="eCommerceApp.productOrder.code">Code</Translate>
+                    <Translate contentKey="storeApp.productOrder.code">Code</Translate>
                   </Label>
                   <AvField
                     id="product-order-code"
@@ -144,7 +144,7 @@ export class ProductOrderUpdate extends React.Component<IProductOrderUpdateProps
                 </AvGroup>
                 <AvGroup>
                   <Label for="customer.email">
-                    <Translate contentKey="eCommerceApp.productOrder.customer">Customer</Translate>
+                    <Translate contentKey="storeApp.productOrder.customer">Customer</Translate>
                   </Label>
                   <AvInput
                     id="product-order-customer"
@@ -163,14 +163,16 @@ export class ProductOrderUpdate extends React.Component<IProductOrderUpdateProps
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/product-order" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

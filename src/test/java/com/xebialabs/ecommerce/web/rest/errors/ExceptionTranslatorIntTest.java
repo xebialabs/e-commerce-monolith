@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest.errors;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ExceptionTranslator
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class ExceptionTranslatorIntTest {
 
     @Autowired

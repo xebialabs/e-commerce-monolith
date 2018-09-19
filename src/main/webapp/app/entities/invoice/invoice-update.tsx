@@ -16,18 +16,18 @@ import { IInvoice } from 'app/shared/model/invoice.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface IInvoiceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IInvoiceUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface IInvoiceUpdateState {
   isNew: boolean;
-  orderId: number;
+  orderId: string;
 }
 
 export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoiceUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      orderId: 0,
+      orderId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -74,8 +74,8 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="eCommerceApp.invoice.home.createOrEditLabel">
-              <Translate contentKey="eCommerceApp.invoice.home.createOrEditLabel">Create or edit a Invoice</Translate>
+            <h2 id="storeApp.invoice.home.createOrEditLabel">
+              <Translate contentKey="storeApp.invoice.home.createOrEditLabel">Create or edit a Invoice</Translate>
             </h2>
           </Col>
         </Row>
@@ -95,7 +95,7 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                 ) : null}
                 <AvGroup>
                   <Label id="codeLabel" for="code">
-                    <Translate contentKey="eCommerceApp.invoice.code">Code</Translate>
+                    <Translate contentKey="storeApp.invoice.code">Code</Translate>
                   </Label>
                   <AvField
                     id="invoice-code"
@@ -108,7 +108,7 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                 </AvGroup>
                 <AvGroup>
                   <Label id="dateLabel" for="date">
-                    <Translate contentKey="eCommerceApp.invoice.date">Date</Translate>
+                    <Translate contentKey="storeApp.invoice.date">Date</Translate>
                   </Label>
                   <AvInput
                     id="invoice-date"
@@ -123,13 +123,13 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                 </AvGroup>
                 <AvGroup>
                   <Label id="detailsLabel" for="details">
-                    <Translate contentKey="eCommerceApp.invoice.details">Details</Translate>
+                    <Translate contentKey="storeApp.invoice.details">Details</Translate>
                   </Label>
                   <AvField id="invoice-details" type="text" name="details" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="statusLabel">
-                    <Translate contentKey="eCommerceApp.invoice.status">Status</Translate>
+                    <Translate contentKey="storeApp.invoice.status">Status</Translate>
                   </Label>
                   <AvInput
                     id="invoice-status"
@@ -139,19 +139,19 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                     value={(!isNew && invoiceEntity.status) || 'PAID'}
                   >
                     <option value="PAID">
-                      <Translate contentKey="eCommerceApp.InvoiceStatus.PAID" />
+                      <Translate contentKey="storeApp.InvoiceStatus.PAID" />
                     </option>
                     <option value="ISSUED">
-                      <Translate contentKey="eCommerceApp.InvoiceStatus.ISSUED" />
+                      <Translate contentKey="storeApp.InvoiceStatus.ISSUED" />
                     </option>
                     <option value="CANCELLED">
-                      <Translate contentKey="eCommerceApp.InvoiceStatus.CANCELLED" />
+                      <Translate contentKey="storeApp.InvoiceStatus.CANCELLED" />
                     </option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label id="paymentMethodLabel">
-                    <Translate contentKey="eCommerceApp.invoice.paymentMethod">Payment Method</Translate>
+                    <Translate contentKey="storeApp.invoice.paymentMethod">Payment Method</Translate>
                   </Label>
                   <AvInput
                     id="invoice-paymentMethod"
@@ -161,19 +161,19 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                     value={(!isNew && invoiceEntity.paymentMethod) || 'CREDIT_CARD'}
                   >
                     <option value="CREDIT_CARD">
-                      <Translate contentKey="eCommerceApp.PaymentMethod.CREDIT_CARD" />
+                      <Translate contentKey="storeApp.PaymentMethod.CREDIT_CARD" />
                     </option>
                     <option value="CASH_ON_DELIVERY">
-                      <Translate contentKey="eCommerceApp.PaymentMethod.CASH_ON_DELIVERY" />
+                      <Translate contentKey="storeApp.PaymentMethod.CASH_ON_DELIVERY" />
                     </option>
                     <option value="PAYPAL">
-                      <Translate contentKey="eCommerceApp.PaymentMethod.PAYPAL" />
+                      <Translate contentKey="storeApp.PaymentMethod.PAYPAL" />
                     </option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label id="paymentDateLabel" for="paymentDate">
-                    <Translate contentKey="eCommerceApp.invoice.paymentDate">Payment Date</Translate>
+                    <Translate contentKey="storeApp.invoice.paymentDate">Payment Date</Translate>
                   </Label>
                   <AvInput
                     id="invoice-paymentDate"
@@ -188,7 +188,7 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                 </AvGroup>
                 <AvGroup>
                   <Label id="paymentAmountLabel" for="paymentAmount">
-                    <Translate contentKey="eCommerceApp.invoice.paymentAmount">Payment Amount</Translate>
+                    <Translate contentKey="storeApp.invoice.paymentAmount">Payment Amount</Translate>
                   </Label>
                   <AvField
                     id="invoice-paymentAmount"
@@ -202,7 +202,7 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                 </AvGroup>
                 <AvGroup>
                   <Label for="order.code">
-                    <Translate contentKey="eCommerceApp.invoice.order">Order</Translate>
+                    <Translate contentKey="storeApp.invoice.order">Order</Translate>
                   </Label>
                   <AvInput
                     id="invoice-order"
@@ -221,14 +221,16 @@ export class InvoiceUpdate extends React.Component<IInvoiceUpdateProps, IInvoice
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/invoice" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

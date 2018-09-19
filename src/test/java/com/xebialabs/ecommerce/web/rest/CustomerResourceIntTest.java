@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 
 import com.xebialabs.ecommerce.domain.Customer;
 import com.xebialabs.ecommerce.domain.User;
@@ -39,7 +39,7 @@ import com.xebialabs.ecommerce.domain.enumeration.Gender;
  * @see CustomerResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class CustomerResourceIntTest {
 
     private static final String DEFAULT_FIRST_NAME = "AAAAAAAAAA";
@@ -51,8 +51,8 @@ public class CustomerResourceIntTest {
     private static final Gender DEFAULT_GENDER = Gender.MALE;
     private static final Gender UPDATED_GENDER = Gender.FEMALE;
 
-    private static final String DEFAULT_EMAIL = ".@8.T";
-    private static final String UPDATED_EMAIL = "cH@Z,.q";
+    private static final String DEFAULT_EMAIL = "L@f.El";
+    private static final String UPDATED_EMAIL = "Y@V.%";
 
     private static final String DEFAULT_PHONE = "AAAAAAAAAA";
     private static final String UPDATED_PHONE = "BBBBBBBBBB";

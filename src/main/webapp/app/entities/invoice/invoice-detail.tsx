@@ -12,7 +12,7 @@ import { IInvoice } from 'app/shared/model/invoice.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface IInvoiceDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IInvoiceDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class InvoiceDetail extends React.Component<IInvoiceDetailProps> {
   componentDidMount() {
@@ -25,18 +25,18 @@ export class InvoiceDetail extends React.Component<IInvoiceDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="eCommerceApp.invoice.detail.title">Invoice</Translate> [<b>{invoiceEntity.id}</b>]
+            <Translate contentKey="storeApp.invoice.detail.title">Invoice</Translate> [<b>{invoiceEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="code">
-                <Translate contentKey="eCommerceApp.invoice.code">Code</Translate>
+                <Translate contentKey="storeApp.invoice.code">Code</Translate>
               </span>
             </dt>
             <dd>{invoiceEntity.code}</dd>
             <dt>
               <span id="date">
-                <Translate contentKey="eCommerceApp.invoice.date">Date</Translate>
+                <Translate contentKey="storeApp.invoice.date">Date</Translate>
               </span>
             </dt>
             <dd>
@@ -44,25 +44,25 @@ export class InvoiceDetail extends React.Component<IInvoiceDetailProps> {
             </dd>
             <dt>
               <span id="details">
-                <Translate contentKey="eCommerceApp.invoice.details">Details</Translate>
+                <Translate contentKey="storeApp.invoice.details">Details</Translate>
               </span>
             </dt>
             <dd>{invoiceEntity.details}</dd>
             <dt>
               <span id="status">
-                <Translate contentKey="eCommerceApp.invoice.status">Status</Translate>
+                <Translate contentKey="storeApp.invoice.status">Status</Translate>
               </span>
             </dt>
             <dd>{invoiceEntity.status}</dd>
             <dt>
               <span id="paymentMethod">
-                <Translate contentKey="eCommerceApp.invoice.paymentMethod">Payment Method</Translate>
+                <Translate contentKey="storeApp.invoice.paymentMethod">Payment Method</Translate>
               </span>
             </dt>
             <dd>{invoiceEntity.paymentMethod}</dd>
             <dt>
               <span id="paymentDate">
-                <Translate contentKey="eCommerceApp.invoice.paymentDate">Payment Date</Translate>
+                <Translate contentKey="storeApp.invoice.paymentDate">Payment Date</Translate>
               </span>
             </dt>
             <dd>
@@ -70,12 +70,12 @@ export class InvoiceDetail extends React.Component<IInvoiceDetailProps> {
             </dd>
             <dt>
               <span id="paymentAmount">
-                <Translate contentKey="eCommerceApp.invoice.paymentAmount">Payment Amount</Translate>
+                <Translate contentKey="storeApp.invoice.paymentAmount">Payment Amount</Translate>
               </span>
             </dt>
             <dd>{invoiceEntity.paymentAmount}</dd>
             <dt>
-              <Translate contentKey="eCommerceApp.invoice.order">Order</Translate>
+              <Translate contentKey="storeApp.invoice.order">Order</Translate>
             </dt>
             <dd>{invoiceEntity.order ? invoiceEntity.order.code : ''}</dd>
           </dl>
@@ -84,7 +84,8 @@ export class InvoiceDetail extends React.Component<IInvoiceDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/invoice/${invoiceEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

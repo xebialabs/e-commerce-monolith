@@ -53,10 +53,11 @@ export class Customer extends React.Component<ICustomerProps, ICustomerState> {
     return (
       <div>
         <h2 id="customer-heading">
-          <Translate contentKey="eCommerceApp.customer.home.title">Customers</Translate>
+          <Translate contentKey="storeApp.customer.home.title">Customers</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="eCommerceApp.customer.home.createLabel">Create new Customer</Translate>
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
+            <Translate contentKey="storeApp.customer.home.createLabel">Create new Customer</Translate>
           </Link>
         </h2>
         <div className="table-responsive">
@@ -67,34 +68,34 @@ export class Customer extends React.Component<ICustomerProps, ICustomerState> {
                   <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('firstName')}>
-                  <Translate contentKey="eCommerceApp.customer.firstName">First Name</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.customer.firstName">First Name</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('lastName')}>
-                  <Translate contentKey="eCommerceApp.customer.lastName">Last Name</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.customer.lastName">Last Name</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('gender')}>
-                  <Translate contentKey="eCommerceApp.customer.gender">Gender</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.customer.gender">Gender</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('email')}>
-                  <Translate contentKey="eCommerceApp.customer.email">Email</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.customer.email">Email</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('phone')}>
-                  <Translate contentKey="eCommerceApp.customer.phone">Phone</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.customer.phone">Phone</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('addressLine1')}>
-                  <Translate contentKey="eCommerceApp.customer.addressLine1">Address Line 1</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.customer.addressLine1">Address Line 1</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('addressLine2')}>
-                  <Translate contentKey="eCommerceApp.customer.addressLine2">Address Line 2</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.customer.addressLine2">Address Line 2</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('city')}>
-                  <Translate contentKey="eCommerceApp.customer.city">City</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.customer.city">City</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('country')}>
-                  <Translate contentKey="eCommerceApp.customer.country">Country</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.customer.country">Country</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="eCommerceApp.customer.user">User</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.customer.user">User</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -110,7 +111,7 @@ export class Customer extends React.Component<ICustomerProps, ICustomerState> {
                   <td>{customer.firstName}</td>
                   <td>{customer.lastName}</td>
                   <td>
-                    <Translate contentKey={`eCommerceApp.Gender.${customer.gender}`} />
+                    <Translate contentKey={`storeApp.Gender.${customer.gender}`} />
                   </td>
                   <td>{customer.email}</td>
                   <td>{customer.phone}</td>

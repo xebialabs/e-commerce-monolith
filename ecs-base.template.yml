@@ -3,10 +3,10 @@ Parameters:
   applicationStackS3Bucket:
     Type: String
     Description: Name of the S3 bucket containing the application.template.yml template file
-    Default: ecommerce-1537364944346
-  eCommerceDBPassword:
+    Default: ecommerce-store-1537366869949
+  storeDBPassword:
     Type: String
-    Description: Aurora master database password for eCommerce
+    Description: Aurora master database password for store
     NoEcho: true
 
   shouldDeployService:
@@ -17,18 +17,18 @@ Parameters:
         - false
     Default: false
 Resources:
-  eCommerce:
+  store:
     Type: 'AWS::CloudFormation::Stack'
     Properties:
       Parameters:
         parentStackName: !Ref AWS::StackName
-        repositoryName: ecommerce/ecommerce
+        repositoryName: ecommerce-store/store
         shouldDeployService: !Ref shouldDeployService
-        databasePassword: !Ref eCommerceDBPassword
-      TemplateURL: !Join [ '', [ 'https://s3.amazonaws.com/',!Ref applicationStackS3Bucket, '/eCommerce.template.yml'] ]
+        databasePassword: !Ref storeDBPassword
+      TemplateURL: !Join [ '', [ 'https://s3.amazonaws.com/',!Ref applicationStackS3Bucket, '/store.template.yml'] ]
 
 Outputs:
-  LoadBalancerOutputeCommerce:
+  LoadBalancerOutputstore:
     Description: The external DNS address of the load-balanancers
-    Value: !GetAtt eCommerce.Outputs.LoadBalancerOutput
+    Value: !GetAtt store.Outputs.LoadBalancerOutput
 

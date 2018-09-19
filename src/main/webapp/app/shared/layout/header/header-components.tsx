@@ -29,7 +29,7 @@ export const Brand = props => (
   <NavbarBrand tag={Link} to="/" className="brand-logo">
     <BrandIcon />
     <span className="brand-title">
-      <Translate contentKey="global.title">ECommerce</Translate>
+      <Translate contentKey="global.title">Store</Translate>
     </span>
     <span className="navbar-version">{appConfig.VERSION}</span>
   </NavbarBrand>

@@ -24,10 +24,11 @@ export class ProductCategory extends React.Component<IProductCategoryProps> {
     return (
       <div>
         <h2 id="product-category-heading">
-          <Translate contentKey="eCommerceApp.productCategory.home.title">Product Categories</Translate>
+          <Translate contentKey="storeApp.productCategory.home.title">Product Categories</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="eCommerceApp.productCategory.home.createLabel">Create new Product Category</Translate>
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
+            <Translate contentKey="storeApp.productCategory.home.createLabel">Create new Product Category</Translate>
           </Link>
         </h2>
         <div className="table-responsive">
@@ -38,10 +39,10 @@ export class ProductCategory extends React.Component<IProductCategoryProps> {
                   <Translate contentKey="global.field.id">ID</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="eCommerceApp.productCategory.name">Name</Translate>
+                  <Translate contentKey="storeApp.productCategory.name">Name</Translate>
                 </th>
                 <th>
-                  <Translate contentKey="eCommerceApp.productCategory.description">Description</Translate>
+                  <Translate contentKey="storeApp.productCategory.description">Description</Translate>
                 </th>
                 <th />
               </tr>

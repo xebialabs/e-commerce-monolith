@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 
 import com.xebialabs.ecommerce.domain.ProductCategory;
 import com.xebialabs.ecommerce.repository.ProductCategoryRepository;
@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ProductCategoryResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class ProductCategoryResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

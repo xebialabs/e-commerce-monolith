@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 
 import com.xebialabs.ecommerce.domain.ProductOrder;
 import com.xebialabs.ecommerce.domain.Customer;
@@ -41,7 +41,7 @@ import com.xebialabs.ecommerce.domain.enumeration.OrderStatus;
  * @see ProductOrderResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class ProductOrderResourceIntTest {
 
     private static final Instant DEFAULT_PLACED_DATE = Instant.ofEpochMilli(0L);

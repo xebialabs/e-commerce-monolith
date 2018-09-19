@@ -1,6 +1,6 @@
 {
-  "name": "eCommerce",
-  "short_name": "eCommerce",
+  "name": "store",
+  "short_name": "store",
   "icons": [
       {
           "src": "./content/images/hipster192.png",

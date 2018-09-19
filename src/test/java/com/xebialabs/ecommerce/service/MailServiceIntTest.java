@@ -1,7 +1,7 @@
 package com.xebialabs.ecommerce.service;
 import com.xebialabs.ecommerce.config.Constants;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 import com.xebialabs.ecommerce.domain.User;
 import io.github.jhipster.config.JHipsterProperties;
 import org.junit.Before;
@@ -30,7 +30,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class MailServiceIntTest {
 
     @Autowired

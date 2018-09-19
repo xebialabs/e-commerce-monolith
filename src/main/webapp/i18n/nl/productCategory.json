@@ -1,6 +1,6 @@
 
 {
-    "eCommerceApp": {
+    "storeApp": {
         "productCategory" : {
             "home": {
                 "title": "Product Categories",

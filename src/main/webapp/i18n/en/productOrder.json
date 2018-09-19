@@ -1,6 +1,6 @@
 
 {
-    "eCommerceApp": {
+    "storeApp": {
         "productOrder" : {
             "home": {
                 "title": "Product Orders",

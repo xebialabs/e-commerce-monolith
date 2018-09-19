@@ -9,7 +9,7 @@ import { IShipment } from 'app/shared/model/shipment.model';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity, deleteEntity } from './shipment.reducer';
 
-export interface IShipmentDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IShipmentDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class ShipmentDeleteDialog extends React.Component<IShipmentDeleteDialogProps> {
   componentDidMount() {
@@ -33,18 +33,20 @@ export class ShipmentDeleteDialog extends React.Component<IShipmentDeleteDialogP
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="eCommerceApp.shipment.delete.question">
-          <Translate contentKey="eCommerceApp.shipment.delete.question" interpolate={{ id: shipmentEntity.id }}>
+        <ModalBody id="storeApp.shipment.delete.question">
+          <Translate contentKey="storeApp.shipment.delete.question" interpolate={{ id: shipmentEntity.id }}>
             Are you sure you want to delete this Shipment?
           </Translate>
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={this.handleClose}>
-            <FontAwesomeIcon icon="ban" />&nbsp;
+            <FontAwesomeIcon icon="ban" />
+            &nbsp;
             <Translate contentKey="entity.action.cancel">Cancel</Translate>
           </Button>
           <Button id="jhi-confirm-delete-shipment" color="danger" onClick={this.confirmDelete}>
-            <FontAwesomeIcon icon="trash" />&nbsp;
+            <FontAwesomeIcon icon="trash" />
+            &nbsp;
             <Translate contentKey="entity.action.delete">Delete</Translate>
           </Button>
         </ModalFooter>

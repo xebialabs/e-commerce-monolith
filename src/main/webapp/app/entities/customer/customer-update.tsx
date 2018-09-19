@@ -16,18 +16,18 @@ import { ICustomer } from 'app/shared/model/customer.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface ICustomerUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface ICustomerUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface ICustomerUpdateState {
   isNew: boolean;
-  userId: number;
+  userId: string;
 }
 
 export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICustomerUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      userId: 0,
+      userId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -71,8 +71,8 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="eCommerceApp.customer.home.createOrEditLabel">
-              <Translate contentKey="eCommerceApp.customer.home.createOrEditLabel">Create or edit a Customer</Translate>
+            <h2 id="storeApp.customer.home.createOrEditLabel">
+              <Translate contentKey="storeApp.customer.home.createOrEditLabel">Create or edit a Customer</Translate>
             </h2>
           </Col>
         </Row>
@@ -92,7 +92,7 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                 ) : null}
                 <AvGroup>
                   <Label id="firstNameLabel" for="firstName">
-                    <Translate contentKey="eCommerceApp.customer.firstName">First Name</Translate>
+                    <Translate contentKey="storeApp.customer.firstName">First Name</Translate>
                   </Label>
                   <AvField
                     id="customer-firstName"
@@ -105,7 +105,7 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                 </AvGroup>
                 <AvGroup>
                   <Label id="lastNameLabel" for="lastName">
-                    <Translate contentKey="eCommerceApp.customer.lastName">Last Name</Translate>
+                    <Translate contentKey="storeApp.customer.lastName">Last Name</Translate>
                   </Label>
                   <AvField
                     id="customer-lastName"
@@ -118,7 +118,7 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                 </AvGroup>
                 <AvGroup>
                   <Label id="genderLabel">
-                    <Translate contentKey="eCommerceApp.customer.gender">Gender</Translate>
+                    <Translate contentKey="storeApp.customer.gender">Gender</Translate>
                   </Label>
                   <AvInput
                     id="customer-gender"
@@ -128,19 +128,19 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                     value={(!isNew && customerEntity.gender) || 'MALE'}
                   >
                     <option value="MALE">
-                      <Translate contentKey="eCommerceApp.Gender.MALE" />
+                      <Translate contentKey="storeApp.Gender.MALE" />
                     </option>
                     <option value="FEMALE">
-                      <Translate contentKey="eCommerceApp.Gender.FEMALE" />
+                      <Translate contentKey="storeApp.Gender.FEMALE" />
                     </option>
                     <option value="OTHER">
-                      <Translate contentKey="eCommerceApp.Gender.OTHER" />
+                      <Translate contentKey="storeApp.Gender.OTHER" />
                     </option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label id="emailLabel" for="email">
-                    <Translate contentKey="eCommerceApp.customer.email">Email</Translate>
+                    <Translate contentKey="storeApp.customer.email">Email</Translate>
                   </Label>
                   <AvField
                     id="customer-email"
@@ -157,7 +157,7 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                 </AvGroup>
                 <AvGroup>
                   <Label id="phoneLabel" for="phone">
-                    <Translate contentKey="eCommerceApp.customer.phone">Phone</Translate>
+                    <Translate contentKey="storeApp.customer.phone">Phone</Translate>
                   </Label>
                   <AvField
                     id="customer-phone"
@@ -170,7 +170,7 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                 </AvGroup>
                 <AvGroup>
                   <Label id="addressLine1Label" for="addressLine1">
-                    <Translate contentKey="eCommerceApp.customer.addressLine1">Address Line 1</Translate>
+                    <Translate contentKey="storeApp.customer.addressLine1">Address Line 1</Translate>
                   </Label>
                   <AvField
                     id="customer-addressLine1"
@@ -183,13 +183,13 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                 </AvGroup>
                 <AvGroup>
                   <Label id="addressLine2Label" for="addressLine2">
-                    <Translate contentKey="eCommerceApp.customer.addressLine2">Address Line 2</Translate>
+                    <Translate contentKey="storeApp.customer.addressLine2">Address Line 2</Translate>
                   </Label>
                   <AvField id="customer-addressLine2" type="text" name="addressLine2" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="cityLabel" for="city">
-                    <Translate contentKey="eCommerceApp.customer.city">City</Translate>
+                    <Translate contentKey="storeApp.customer.city">City</Translate>
                   </Label>
                   <AvField
                     id="customer-city"
@@ -202,7 +202,7 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                 </AvGroup>
                 <AvGroup>
                   <Label id="countryLabel" for="country">
-                    <Translate contentKey="eCommerceApp.customer.country">Country</Translate>
+                    <Translate contentKey="storeApp.customer.country">Country</Translate>
                   </Label>
                   <AvField
                     id="customer-country"
@@ -215,7 +215,7 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                 </AvGroup>
                 <AvGroup>
                   <Label for="user.login">
-                    <Translate contentKey="eCommerceApp.customer.user">User</Translate>
+                    <Translate contentKey="storeApp.customer.user">User</Translate>
                   </Label>
                   <AvInput
                     id="customer-user"
@@ -234,14 +234,16 @@ export class CustomerUpdate extends React.Component<ICustomerUpdateProps, ICusto
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/customer" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

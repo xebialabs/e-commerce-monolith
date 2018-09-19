@@ -62,10 +62,11 @@ export class Product extends React.Component<IProductProps, IProductState> {
     return (
       <div>
         <h2 id="product-heading">
-          <Translate contentKey="eCommerceApp.product.home.title">Products</Translate>
+          <Translate contentKey="storeApp.product.home.title">Products</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="eCommerceApp.product.home.createLabel">Create new Product</Translate>
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
+            <Translate contentKey="storeApp.product.home.createLabel">Create new Product</Translate>
           </Link>
         </h2>
         <div className="table-responsive">
@@ -76,22 +77,22 @@ export class Product extends React.Component<IProductProps, IProductState> {
                   <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('name')}>
-                  <Translate contentKey="eCommerceApp.product.name">Name</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.product.name">Name</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('description')}>
-                  <Translate contentKey="eCommerceApp.product.description">Description</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.product.description">Description</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('price')}>
-                  <Translate contentKey="eCommerceApp.product.price">Price</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.product.price">Price</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('size')}>
-                  <Translate contentKey="eCommerceApp.product.size">Size</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.product.size">Size</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('image')}>
-                  <Translate contentKey="eCommerceApp.product.image">Image</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.product.image">Image</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="eCommerceApp.product.productCategory">Product Category</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.product.productCategory">Product Category</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -108,7 +109,7 @@ export class Product extends React.Component<IProductProps, IProductState> {
                   <td>{product.description}</td>
                   <td>{product.price}</td>
                   <td>
-                    <Translate contentKey={`eCommerceApp.Size.${product.size}`} />
+                    <Translate contentKey={`storeApp.Size.${product.size}`} />
                   </td>
                   <td>
                     {product.image ? (

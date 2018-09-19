@@ -12,7 +12,7 @@ import { IProduct } from 'app/shared/model/product.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface IProductDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IProductDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class ProductDetail extends React.Component<IProductDetailProps> {
   componentDidMount() {
@@ -25,36 +25,36 @@ export class ProductDetail extends React.Component<IProductDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="eCommerceApp.product.detail.title">Product</Translate> [<b>{productEntity.id}</b>]
+            <Translate contentKey="storeApp.product.detail.title">Product</Translate> [<b>{productEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="name">
-                <Translate contentKey="eCommerceApp.product.name">Name</Translate>
+                <Translate contentKey="storeApp.product.name">Name</Translate>
               </span>
             </dt>
             <dd>{productEntity.name}</dd>
             <dt>
               <span id="description">
-                <Translate contentKey="eCommerceApp.product.description">Description</Translate>
+                <Translate contentKey="storeApp.product.description">Description</Translate>
               </span>
             </dt>
             <dd>{productEntity.description}</dd>
             <dt>
               <span id="price">
-                <Translate contentKey="eCommerceApp.product.price">Price</Translate>
+                <Translate contentKey="storeApp.product.price">Price</Translate>
               </span>
             </dt>
             <dd>{productEntity.price}</dd>
             <dt>
               <span id="size">
-                <Translate contentKey="eCommerceApp.product.size">Size</Translate>
+                <Translate contentKey="storeApp.product.size">Size</Translate>
               </span>
             </dt>
             <dd>{productEntity.size}</dd>
             <dt>
               <span id="image">
-                <Translate contentKey="eCommerceApp.product.image">Image</Translate>
+                <Translate contentKey="storeApp.product.image">Image</Translate>
               </span>
             </dt>
             <dd>
@@ -70,7 +70,7 @@ export class ProductDetail extends React.Component<IProductDetailProps> {
               ) : null}
             </dd>
             <dt>
-              <Translate contentKey="eCommerceApp.product.productCategory">Product Category</Translate>
+              <Translate contentKey="storeApp.product.productCategory">Product Category</Translate>
             </dt>
             <dd>{productEntity.productCategory ? productEntity.productCategory.name : ''}</dd>
           </dl>
@@ -79,7 +79,8 @@ export class ProductDetail extends React.Component<IProductDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/product/${productEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

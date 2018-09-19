@@ -12,7 +12,7 @@ import { IProductOrder } from 'app/shared/model/product-order.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface IProductOrderDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IProductOrderDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class ProductOrderDetail extends React.Component<IProductOrderDetailProps> {
   componentDidMount() {
@@ -25,12 +25,12 @@ export class ProductOrderDetail extends React.Component<IProductOrderDetailProps
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="eCommerceApp.productOrder.detail.title">ProductOrder</Translate> [<b>{productOrderEntity.id}</b>]
+            <Translate contentKey="storeApp.productOrder.detail.title">ProductOrder</Translate> [<b>{productOrderEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="placedDate">
-                <Translate contentKey="eCommerceApp.productOrder.placedDate">Placed Date</Translate>
+                <Translate contentKey="storeApp.productOrder.placedDate">Placed Date</Translate>
               </span>
             </dt>
             <dd>
@@ -38,18 +38,18 @@ export class ProductOrderDetail extends React.Component<IProductOrderDetailProps
             </dd>
             <dt>
               <span id="status">
-                <Translate contentKey="eCommerceApp.productOrder.status">Status</Translate>
+                <Translate contentKey="storeApp.productOrder.status">Status</Translate>
               </span>
             </dt>
             <dd>{productOrderEntity.status}</dd>
             <dt>
               <span id="code">
-                <Translate contentKey="eCommerceApp.productOrder.code">Code</Translate>
+                <Translate contentKey="storeApp.productOrder.code">Code</Translate>
               </span>
             </dt>
             <dd>{productOrderEntity.code}</dd>
             <dt>
-              <Translate contentKey="eCommerceApp.productOrder.customer">Customer</Translate>
+              <Translate contentKey="storeApp.productOrder.customer">Customer</Translate>
             </dt>
             <dd>{productOrderEntity.customer ? productOrderEntity.customer.email : ''}</dd>
           </dl>
@@ -58,7 +58,8 @@ export class ProductOrderDetail extends React.Component<IProductOrderDetailProps
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/product-order/${productOrderEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

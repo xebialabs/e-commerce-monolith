@@ -1,6 +1,6 @@
 version: '2'
 services:
-    ecommerce-hazelcast-management-center:
+    store-hazelcast-management-center:
         image: hazelcast/management-center:3.9.3
         ports:
             - 8180:8080

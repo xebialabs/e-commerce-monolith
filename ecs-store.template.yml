@@ -62,7 +62,7 @@ Parameters:
   databaseUsername:
     Type: String
     Description: Database username
-    Default: eCommerce
+    Default: store
   databasePassword:
     Type: String
     Description: Database password

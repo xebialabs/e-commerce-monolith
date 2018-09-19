@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 
 import com.xebialabs.ecommerce.domain.Shipment;
 import com.xebialabs.ecommerce.domain.Invoice;
@@ -40,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see ShipmentResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class ShipmentResourceIntTest {
 
     private static final String DEFAULT_TRACKING_CODE = "AAAAAAAAAA";

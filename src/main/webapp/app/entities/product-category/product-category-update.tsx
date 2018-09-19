@@ -14,7 +14,7 @@ import { IProductCategory } from 'app/shared/model/product-category.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface IProductCategoryUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IProductCategoryUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface IProductCategoryUpdateState {
   isNew: boolean;
@@ -65,8 +65,8 @@ export class ProductCategoryUpdate extends React.Component<IProductCategoryUpdat
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="eCommerceApp.productCategory.home.createOrEditLabel">
-              <Translate contentKey="eCommerceApp.productCategory.home.createOrEditLabel">Create or edit a ProductCategory</Translate>
+            <h2 id="storeApp.productCategory.home.createOrEditLabel">
+              <Translate contentKey="storeApp.productCategory.home.createOrEditLabel">Create or edit a ProductCategory</Translate>
             </h2>
           </Col>
         </Row>
@@ -86,7 +86,7 @@ export class ProductCategoryUpdate extends React.Component<IProductCategoryUpdat
                 ) : null}
                 <AvGroup>
                   <Label id="nameLabel" for="name">
-                    <Translate contentKey="eCommerceApp.productCategory.name">Name</Translate>
+                    <Translate contentKey="storeApp.productCategory.name">Name</Translate>
                   </Label>
                   <AvField
                     id="product-category-name"
@@ -99,19 +99,21 @@ export class ProductCategoryUpdate extends React.Component<IProductCategoryUpdat
                 </AvGroup>
                 <AvGroup>
                   <Label id="descriptionLabel" for="description">
-                    <Translate contentKey="eCommerceApp.productCategory.description">Description</Translate>
+                    <Translate contentKey="storeApp.productCategory.description">Description</Translate>
                   </Label>
                   <AvField id="product-category-description" type="text" name="description" />
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/product-category" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

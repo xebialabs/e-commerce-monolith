@@ -4,7 +4,7 @@
 
 spring:
     application:
-        name: eCommerce
+        name: store
     cloud:
         config:
             fail-fast: true
@@ -12,5 +12,5 @@ spring:
 cloud:
     aws:
         stack:
-            name: eCommerce
+            name: store
             auto: false

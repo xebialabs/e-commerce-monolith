@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 import com.xebialabs.ecommerce.config.audit.AuditEventConverter;
 import com.xebialabs.ecommerce.domain.PersistentAuditEvent;
 import com.xebialabs.ecommerce.repository.PersistenceAuditEventRepository;
@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see AuditResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 @Transactional
 public class AuditResourceIntTest {
 

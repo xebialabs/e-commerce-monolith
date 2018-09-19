@@ -1,6 +1,6 @@
 
 {
-    "eCommerceApp": {
+    "storeApp": {
         "customer" : {
             "home": {
                 "title": "Customers",

@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.repository;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 import com.xebialabs.ecommerce.config.Constants;
 import com.xebialabs.ecommerce.config.audit.AuditEventConverter;
 import com.xebialabs.ecommerce.domain.PersistentAuditEvent;
@@ -31,7 +31,7 @@ import static com.xebialabs.ecommerce.repository.CustomAuditEventRepository.EVEN
  * @see CustomAuditEventRepository
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 @Transactional
 public class CustomAuditEventRepositoryIntTest {
 

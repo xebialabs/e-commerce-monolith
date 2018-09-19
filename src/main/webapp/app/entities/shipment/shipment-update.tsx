@@ -16,18 +16,18 @@ import { IShipment } from 'app/shared/model/shipment.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface IShipmentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IShipmentUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface IShipmentUpdateState {
   isNew: boolean;
-  invoiceId: number;
+  invoiceId: string;
 }
 
 export class ShipmentUpdate extends React.Component<IShipmentUpdateProps, IShipmentUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      invoiceId: 0,
+      invoiceId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -73,8 +73,8 @@ export class ShipmentUpdate extends React.Component<IShipmentUpdateProps, IShipm
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="eCommerceApp.shipment.home.createOrEditLabel">
-              <Translate contentKey="eCommerceApp.shipment.home.createOrEditLabel">Create or edit a Shipment</Translate>
+            <h2 id="storeApp.shipment.home.createOrEditLabel">
+              <Translate contentKey="storeApp.shipment.home.createOrEditLabel">Create or edit a Shipment</Translate>
             </h2>
           </Col>
         </Row>
@@ -94,13 +94,13 @@ export class ShipmentUpdate extends React.Component<IShipmentUpdateProps, IShipm
                 ) : null}
                 <AvGroup>
                   <Label id="trackingCodeLabel" for="trackingCode">
-                    <Translate contentKey="eCommerceApp.shipment.trackingCode">Tracking Code</Translate>
+                    <Translate contentKey="storeApp.shipment.trackingCode">Tracking Code</Translate>
                   </Label>
                   <AvField id="shipment-trackingCode" type="text" name="trackingCode" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="dateLabel" for="date">
-                    <Translate contentKey="eCommerceApp.shipment.date">Date</Translate>
+                    <Translate contentKey="storeApp.shipment.date">Date</Translate>
                   </Label>
                   <AvInput
                     id="shipment-date"
@@ -115,13 +115,13 @@ export class ShipmentUpdate extends React.Component<IShipmentUpdateProps, IShipm
                 </AvGroup>
                 <AvGroup>
                   <Label id="detailsLabel" for="details">
-                    <Translate contentKey="eCommerceApp.shipment.details">Details</Translate>
+                    <Translate contentKey="storeApp.shipment.details">Details</Translate>
                   </Label>
                   <AvField id="shipment-details" type="text" name="details" />
                 </AvGroup>
                 <AvGroup>
                   <Label for="invoice.code">
-                    <Translate contentKey="eCommerceApp.shipment.invoice">Invoice</Translate>
+                    <Translate contentKey="storeApp.shipment.invoice">Invoice</Translate>
                   </Label>
                   <AvInput
                     id="shipment-invoice"
@@ -140,14 +140,16 @@ export class ShipmentUpdate extends React.Component<IShipmentUpdateProps, IShipm
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/shipment" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

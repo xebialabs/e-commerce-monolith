@@ -16,18 +16,18 @@ import { IProduct } from 'app/shared/model/product.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface IProductUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IProductUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface IProductUpdateState {
   isNew: boolean;
-  productCategoryId: number;
+  productCategoryId: string;
 }
 
 export class ProductUpdate extends React.Component<IProductUpdateProps, IProductUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      productCategoryId: 0,
+      productCategoryId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -81,8 +81,8 @@ export class ProductUpdate extends React.Component<IProductUpdateProps, IProduct
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="eCommerceApp.product.home.createOrEditLabel">
-              <Translate contentKey="eCommerceApp.product.home.createOrEditLabel">Create or edit a Product</Translate>
+            <h2 id="storeApp.product.home.createOrEditLabel">
+              <Translate contentKey="storeApp.product.home.createOrEditLabel">Create or edit a Product</Translate>
             </h2>
           </Col>
         </Row>
@@ -102,7 +102,7 @@ export class ProductUpdate extends React.Component<IProductUpdateProps, IProduct
                 ) : null}
                 <AvGroup>
                   <Label id="nameLabel" for="name">
-                    <Translate contentKey="eCommerceApp.product.name">Name</Translate>
+                    <Translate contentKey="storeApp.product.name">Name</Translate>
                   </Label>
                   <AvField
                     id="product-name"
@@ -115,13 +115,13 @@ export class ProductUpdate extends React.Component<IProductUpdateProps, IProduct
                 </AvGroup>
                 <AvGroup>
                   <Label id="descriptionLabel" for="description">
-                    <Translate contentKey="eCommerceApp.product.description">Description</Translate>
+                    <Translate contentKey="storeApp.product.description">Description</Translate>
                   </Label>
                   <AvField id="product-description" type="text" name="description" />
                 </AvGroup>
                 <AvGroup>
                   <Label id="priceLabel" for="price">
-                    <Translate contentKey="eCommerceApp.product.price">Price</Translate>
+                    <Translate contentKey="storeApp.product.price">Price</Translate>
                   </Label>
                   <AvField
                     id="product-price"
@@ -136,7 +136,7 @@ export class ProductUpdate extends React.Component<IProductUpdateProps, IProduct
                 </AvGroup>
                 <AvGroup>
                   <Label id="sizeLabel">
-                    <Translate contentKey="eCommerceApp.product.size">Size</Translate>
+                    <Translate contentKey="storeApp.product.size">Size</Translate>
                   </Label>
                   <AvInput
                     id="product-size"
@@ -146,26 +146,26 @@ export class ProductUpdate extends React.Component<IProductUpdateProps, IProduct
                     value={(!isNew && productEntity.size) || 'S'}
                   >
                     <option value="S">
-                      <Translate contentKey="eCommerceApp.Size.S" />
+                      <Translate contentKey="storeApp.Size.S" />
                     </option>
                     <option value="M">
-                      <Translate contentKey="eCommerceApp.Size.M" />
+                      <Translate contentKey="storeApp.Size.M" />
                     </option>
                     <option value="L">
-                      <Translate contentKey="eCommerceApp.Size.L" />
+                      <Translate contentKey="storeApp.Size.L" />
                     </option>
                     <option value="XL">
-                      <Translate contentKey="eCommerceApp.Size.XL" />
+                      <Translate contentKey="storeApp.Size.XL" />
                     </option>
                     <option value="XXL">
-                      <Translate contentKey="eCommerceApp.Size.XXL" />
+                      <Translate contentKey="storeApp.Size.XXL" />
                     </option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <AvGroup>
                     <Label id="imageLabel" for="image">
-                      <Translate contentKey="eCommerceApp.product.image">Image</Translate>
+                      <Translate contentKey="storeApp.product.image">Image</Translate>
                     </Label>
                     <br />
                     {image ? (
@@ -194,7 +194,7 @@ export class ProductUpdate extends React.Component<IProductUpdateProps, IProduct
                 </AvGroup>
                 <AvGroup>
                   <Label for="productCategory.name">
-                    <Translate contentKey="eCommerceApp.product.productCategory">Product Category</Translate>
+                    <Translate contentKey="storeApp.product.productCategory">Product Category</Translate>
                   </Label>
                   <AvInput id="product-productCategory" type="select" className="form-control" name="productCategory.id">
                     <option value="" key="0" />
@@ -208,14 +208,16 @@ export class ProductUpdate extends React.Component<IProductUpdateProps, IProduct
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/product" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

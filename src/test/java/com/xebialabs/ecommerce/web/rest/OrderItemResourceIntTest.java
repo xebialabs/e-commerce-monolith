@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 
 import com.xebialabs.ecommerce.domain.OrderItem;
 import com.xebialabs.ecommerce.domain.Product;
@@ -41,7 +41,7 @@ import com.xebialabs.ecommerce.domain.enumeration.OrderItemStatus;
  * @see OrderItemResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class OrderItemResourceIntTest {
 
     private static final Integer DEFAULT_QUANTITY = 0;

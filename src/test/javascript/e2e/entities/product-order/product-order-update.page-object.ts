@@ -1,7 +1,7 @@
 import { element, by, ElementFinder } from 'protractor';
 
 export default class ProductOrderUpdatePage {
-  pageTitle: ElementFinder = element(by.id('eCommerceApp.productOrder.home.createOrEditLabel'));
+  pageTitle: ElementFinder = element(by.id('storeApp.productOrder.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   placedDateInput: ElementFinder = element(by.css('input#product-order-placedDate'));
@@ -13,61 +13,61 @@ export default class ProductOrderUpdatePage {
     return this.pageTitle;
   }
 
-  setPlacedDateInput(placedDate) {
-    this.placedDateInput.sendKeys(placedDate);
+  async setPlacedDateInput(placedDate) {
+    await this.placedDateInput.sendKeys(placedDate);
   }
 
-  getPlacedDateInput() {
+  async getPlacedDateInput() {
     return this.placedDateInput.getAttribute('value');
   }
 
-  setStatusSelect(status) {
-    this.statusSelect.sendKeys(status);
+  async setStatusSelect(status) {
+    await this.statusSelect.sendKeys(status);
   }
 
-  getStatusSelect() {
+  async getStatusSelect() {
     return this.statusSelect.element(by.css('option:checked')).getText();
   }
 
-  statusSelectLastOption() {
-    this.statusSelect
+  async statusSelectLastOption() {
+    await this.statusSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
-  setCodeInput(code) {
-    this.codeInput.sendKeys(code);
+  async setCodeInput(code) {
+    await this.codeInput.sendKeys(code);
   }
 
-  getCodeInput() {
+  async getCodeInput() {
     return this.codeInput.getAttribute('value');
   }
 
-  customerSelectLastOption() {
-    this.customerSelect
+  async customerSelectLastOption() {
+    await this.customerSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  customerSelectOption(option) {
-    this.customerSelect.sendKeys(option);
+  async customerSelectOption(option) {
+    await this.customerSelect.sendKeys(option);
   }
 
   getCustomerSelect() {
     return this.customerSelect;
   }
 
-  getCustomerSelectedOption() {
+  async getCustomerSelectedOption() {
     return this.customerSelect.element(by.css('option:checked')).getText();
   }
 
-  save() {
-    return this.saveButton.click();
+  async save() {
+    await this.saveButton.click();
   }
 
-  cancel() {
-    this.cancelButton.click();
+  async cancel() {
+    await this.cancelButton.click();
   }
 
   getSaveButton() {

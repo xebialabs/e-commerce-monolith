@@ -18,20 +18,20 @@ import { IOrderItem } from 'app/shared/model/order-item.model';
 import { convertDateTimeFromServer } from 'app/shared/util/date-utils';
 import { mapIdList } from 'app/shared/util/entity-utils';
 
-export interface IOrderItemUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IOrderItemUpdateProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export interface IOrderItemUpdateState {
   isNew: boolean;
-  productId: number;
-  orderId: number;
+  productId: string;
+  orderId: string;
 }
 
 export class OrderItemUpdate extends React.Component<IOrderItemUpdateProps, IOrderItemUpdateState> {
   constructor(props) {
     super(props);
     this.state = {
-      productId: 0,
-      orderId: 0,
+      productId: '0',
+      orderId: '0',
       isNew: !this.props.match.params || !this.props.match.params.id
     };
   }
@@ -76,8 +76,8 @@ export class OrderItemUpdate extends React.Component<IOrderItemUpdateProps, IOrd
       <div>
         <Row className="justify-content-center">
           <Col md="8">
-            <h2 id="eCommerceApp.orderItem.home.createOrEditLabel">
-              <Translate contentKey="eCommerceApp.orderItem.home.createOrEditLabel">Create or edit a OrderItem</Translate>
+            <h2 id="storeApp.orderItem.home.createOrEditLabel">
+              <Translate contentKey="storeApp.orderItem.home.createOrEditLabel">Create or edit a OrderItem</Translate>
             </h2>
           </Col>
         </Row>
@@ -97,11 +97,11 @@ export class OrderItemUpdate extends React.Component<IOrderItemUpdateProps, IOrd
                 ) : null}
                 <AvGroup>
                   <Label id="quantityLabel" for="quantity">
-                    <Translate contentKey="eCommerceApp.orderItem.quantity">Quantity</Translate>
+                    <Translate contentKey="storeApp.orderItem.quantity">Quantity</Translate>
                   </Label>
                   <AvField
                     id="order-item-quantity"
-                    type="number"
+                    type="string"
                     className="form-control"
                     name="quantity"
                     validate={{
@@ -113,7 +113,7 @@ export class OrderItemUpdate extends React.Component<IOrderItemUpdateProps, IOrd
                 </AvGroup>
                 <AvGroup>
                   <Label id="totalPriceLabel" for="totalPrice">
-                    <Translate contentKey="eCommerceApp.orderItem.totalPrice">Total Price</Translate>
+                    <Translate contentKey="storeApp.orderItem.totalPrice">Total Price</Translate>
                   </Label>
                   <AvField
                     id="order-item-totalPrice"
@@ -128,7 +128,7 @@ export class OrderItemUpdate extends React.Component<IOrderItemUpdateProps, IOrd
                 </AvGroup>
                 <AvGroup>
                   <Label id="statusLabel">
-                    <Translate contentKey="eCommerceApp.orderItem.status">Status</Translate>
+                    <Translate contentKey="storeApp.orderItem.status">Status</Translate>
                   </Label>
                   <AvInput
                     id="order-item-status"
@@ -138,19 +138,19 @@ export class OrderItemUpdate extends React.Component<IOrderItemUpdateProps, IOrd
                     value={(!isNew && orderItemEntity.status) || 'AVAILABLE'}
                   >
                     <option value="AVAILABLE">
-                      <Translate contentKey="eCommerceApp.OrderItemStatus.AVAILABLE" />
+                      <Translate contentKey="storeApp.OrderItemStatus.AVAILABLE" />
                     </option>
                     <option value="OUT_OF_STOCK">
-                      <Translate contentKey="eCommerceApp.OrderItemStatus.OUT_OF_STOCK" />
+                      <Translate contentKey="storeApp.OrderItemStatus.OUT_OF_STOCK" />
                     </option>
                     <option value="BACK_ORDER">
-                      <Translate contentKey="eCommerceApp.OrderItemStatus.BACK_ORDER" />
+                      <Translate contentKey="storeApp.OrderItemStatus.BACK_ORDER" />
                     </option>
                   </AvInput>
                 </AvGroup>
                 <AvGroup>
                   <Label for="product.name">
-                    <Translate contentKey="eCommerceApp.orderItem.product">Product</Translate>
+                    <Translate contentKey="storeApp.orderItem.product">Product</Translate>
                   </Label>
                   <AvInput
                     id="order-item-product"
@@ -170,7 +170,7 @@ export class OrderItemUpdate extends React.Component<IOrderItemUpdateProps, IOrd
                 </AvGroup>
                 <AvGroup>
                   <Label for="order.code">
-                    <Translate contentKey="eCommerceApp.orderItem.order">Order</Translate>
+                    <Translate contentKey="storeApp.orderItem.order">Order</Translate>
                   </Label>
                   <AvInput
                     id="order-item-order"
@@ -189,14 +189,16 @@ export class OrderItemUpdate extends React.Component<IOrderItemUpdateProps, IOrd
                   </AvInput>
                 </AvGroup>
                 <Button tag={Link} id="cancel-save" to="/entity/order-item" replace color="info">
-                  <FontAwesomeIcon icon="arrow-left" />&nbsp;
+                  <FontAwesomeIcon icon="arrow-left" />
+                  &nbsp;
                   <span className="d-none d-md-inline">
                     <Translate contentKey="entity.action.back">Back</Translate>
                   </span>
                 </Button>
                 &nbsp;
                 <Button color="primary" id="save-entity" type="submit" disabled={updating}>
-                  <FontAwesomeIcon icon="save" />&nbsp;
+                  <FontAwesomeIcon icon="save" />
+                  &nbsp;
                   <Translate contentKey="entity.action.save">Save</Translate>
                 </Button>
               </AvForm>

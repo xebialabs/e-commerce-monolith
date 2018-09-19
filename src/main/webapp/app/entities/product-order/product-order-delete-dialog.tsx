@@ -9,7 +9,7 @@ import { IProductOrder } from 'app/shared/model/product-order.model';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity, deleteEntity } from './product-order.reducer';
 
-export interface IProductOrderDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IProductOrderDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class ProductOrderDeleteDialog extends React.Component<IProductOrderDeleteDialogProps> {
   componentDidMount() {
@@ -33,18 +33,20 @@ export class ProductOrderDeleteDialog extends React.Component<IProductOrderDelet
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="eCommerceApp.productOrder.delete.question">
-          <Translate contentKey="eCommerceApp.productOrder.delete.question" interpolate={{ id: productOrderEntity.id }}>
+        <ModalBody id="storeApp.productOrder.delete.question">
+          <Translate contentKey="storeApp.productOrder.delete.question" interpolate={{ id: productOrderEntity.id }}>
             Are you sure you want to delete this ProductOrder?
           </Translate>
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={this.handleClose}>
-            <FontAwesomeIcon icon="ban" />&nbsp;
+            <FontAwesomeIcon icon="ban" />
+            &nbsp;
             <Translate contentKey="entity.action.cancel">Cancel</Translate>
           </Button>
           <Button id="jhi-confirm-delete-productOrder" color="danger" onClick={this.confirmDelete}>
-            <FontAwesomeIcon icon="trash" />&nbsp;
+            <FontAwesomeIcon icon="trash" />
+            &nbsp;
             <Translate contentKey="entity.action.delete">Delete</Translate>
           </Button>
         </ModalFooter>

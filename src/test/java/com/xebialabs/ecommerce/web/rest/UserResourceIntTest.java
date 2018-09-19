@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 import com.xebialabs.ecommerce.domain.Authority;
 import com.xebialabs.ecommerce.domain.User;
 import com.xebialabs.ecommerce.repository.UserRepository;
@@ -42,7 +42,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see UserResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class UserResourceIntTest {
 
     private static final String DEFAULT_LOGIN = "johndoe";

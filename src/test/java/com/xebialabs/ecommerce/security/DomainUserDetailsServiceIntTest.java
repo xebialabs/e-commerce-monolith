@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.security;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 import com.xebialabs.ecommerce.domain.User;
 import com.xebialabs.ecommerce.repository.UserRepository;
 
@@ -26,7 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @see DomainUserDetailsService
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 @Transactional
 public class DomainUserDetailsServiceIntTest {
 

@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 
 import com.xebialabs.ecommerce.domain.Product;
 import com.xebialabs.ecommerce.repository.ProductRepository;
@@ -40,7 +40,7 @@ import com.xebialabs.ecommerce.domain.enumeration.Size;
  * @see ProductResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class ProductResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";

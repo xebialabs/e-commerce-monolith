@@ -12,7 +12,7 @@ import { ICustomer } from 'app/shared/model/customer.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface ICustomerDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface ICustomerDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class CustomerDetail extends React.Component<ICustomerDetailProps> {
   componentDidMount() {
@@ -25,65 +25,65 @@ export class CustomerDetail extends React.Component<ICustomerDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="eCommerceApp.customer.detail.title">Customer</Translate> [<b>{customerEntity.id}</b>]
+            <Translate contentKey="storeApp.customer.detail.title">Customer</Translate> [<b>{customerEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="firstName">
-                <Translate contentKey="eCommerceApp.customer.firstName">First Name</Translate>
+                <Translate contentKey="storeApp.customer.firstName">First Name</Translate>
               </span>
             </dt>
             <dd>{customerEntity.firstName}</dd>
             <dt>
               <span id="lastName">
-                <Translate contentKey="eCommerceApp.customer.lastName">Last Name</Translate>
+                <Translate contentKey="storeApp.customer.lastName">Last Name</Translate>
               </span>
             </dt>
             <dd>{customerEntity.lastName}</dd>
             <dt>
               <span id="gender">
-                <Translate contentKey="eCommerceApp.customer.gender">Gender</Translate>
+                <Translate contentKey="storeApp.customer.gender">Gender</Translate>
               </span>
             </dt>
             <dd>{customerEntity.gender}</dd>
             <dt>
               <span id="email">
-                <Translate contentKey="eCommerceApp.customer.email">Email</Translate>
+                <Translate contentKey="storeApp.customer.email">Email</Translate>
               </span>
             </dt>
             <dd>{customerEntity.email}</dd>
             <dt>
               <span id="phone">
-                <Translate contentKey="eCommerceApp.customer.phone">Phone</Translate>
+                <Translate contentKey="storeApp.customer.phone">Phone</Translate>
               </span>
             </dt>
             <dd>{customerEntity.phone}</dd>
             <dt>
               <span id="addressLine1">
-                <Translate contentKey="eCommerceApp.customer.addressLine1">Address Line 1</Translate>
+                <Translate contentKey="storeApp.customer.addressLine1">Address Line 1</Translate>
               </span>
             </dt>
             <dd>{customerEntity.addressLine1}</dd>
             <dt>
               <span id="addressLine2">
-                <Translate contentKey="eCommerceApp.customer.addressLine2">Address Line 2</Translate>
+                <Translate contentKey="storeApp.customer.addressLine2">Address Line 2</Translate>
               </span>
             </dt>
             <dd>{customerEntity.addressLine2}</dd>
             <dt>
               <span id="city">
-                <Translate contentKey="eCommerceApp.customer.city">City</Translate>
+                <Translate contentKey="storeApp.customer.city">City</Translate>
               </span>
             </dt>
             <dd>{customerEntity.city}</dd>
             <dt>
               <span id="country">
-                <Translate contentKey="eCommerceApp.customer.country">Country</Translate>
+                <Translate contentKey="storeApp.customer.country">Country</Translate>
               </span>
             </dt>
             <dd>{customerEntity.country}</dd>
             <dt>
-              <Translate contentKey="eCommerceApp.customer.user">User</Translate>
+              <Translate contentKey="storeApp.customer.user">User</Translate>
             </dt>
             <dd>{customerEntity.user ? customerEntity.user.login : ''}</dd>
           </dl>
@@ -92,7 +92,8 @@ export class CustomerDetail extends React.Component<ICustomerDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/customer/${customerEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

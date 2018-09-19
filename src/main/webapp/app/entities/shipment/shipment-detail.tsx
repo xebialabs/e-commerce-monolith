@@ -12,7 +12,7 @@ import { IShipment } from 'app/shared/model/shipment.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface IShipmentDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IShipmentDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class ShipmentDetail extends React.Component<IShipmentDetailProps> {
   componentDidMount() {
@@ -25,18 +25,18 @@ export class ShipmentDetail extends React.Component<IShipmentDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="eCommerceApp.shipment.detail.title">Shipment</Translate> [<b>{shipmentEntity.id}</b>]
+            <Translate contentKey="storeApp.shipment.detail.title">Shipment</Translate> [<b>{shipmentEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="trackingCode">
-                <Translate contentKey="eCommerceApp.shipment.trackingCode">Tracking Code</Translate>
+                <Translate contentKey="storeApp.shipment.trackingCode">Tracking Code</Translate>
               </span>
             </dt>
             <dd>{shipmentEntity.trackingCode}</dd>
             <dt>
               <span id="date">
-                <Translate contentKey="eCommerceApp.shipment.date">Date</Translate>
+                <Translate contentKey="storeApp.shipment.date">Date</Translate>
               </span>
             </dt>
             <dd>
@@ -44,12 +44,12 @@ export class ShipmentDetail extends React.Component<IShipmentDetailProps> {
             </dd>
             <dt>
               <span id="details">
-                <Translate contentKey="eCommerceApp.shipment.details">Details</Translate>
+                <Translate contentKey="storeApp.shipment.details">Details</Translate>
               </span>
             </dt>
             <dd>{shipmentEntity.details}</dd>
             <dt>
-              <Translate contentKey="eCommerceApp.shipment.invoice">Invoice</Translate>
+              <Translate contentKey="storeApp.shipment.invoice">Invoice</Translate>
             </dt>
             <dd>{shipmentEntity.invoice ? shipmentEntity.invoice.code : ''}</dd>
           </dl>
@@ -58,7 +58,8 @@ export class ShipmentDetail extends React.Component<IShipmentDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/shipment/${shipmentEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">

@@ -53,10 +53,11 @@ export class OrderItem extends React.Component<IOrderItemProps, IOrderItemState>
     return (
       <div>
         <h2 id="order-item-heading">
-          <Translate contentKey="eCommerceApp.orderItem.home.title">Order Items</Translate>
+          <Translate contentKey="storeApp.orderItem.home.title">Order Items</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="eCommerceApp.orderItem.home.createLabel">Create new Order Item</Translate>
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
+            <Translate contentKey="storeApp.orderItem.home.createLabel">Create new Order Item</Translate>
           </Link>
         </h2>
         <div className="table-responsive">
@@ -67,19 +68,19 @@ export class OrderItem extends React.Component<IOrderItemProps, IOrderItemState>
                   <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('quantity')}>
-                  <Translate contentKey="eCommerceApp.orderItem.quantity">Quantity</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.orderItem.quantity">Quantity</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('totalPrice')}>
-                  <Translate contentKey="eCommerceApp.orderItem.totalPrice">Total Price</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.orderItem.totalPrice">Total Price</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('status')}>
-                  <Translate contentKey="eCommerceApp.orderItem.status">Status</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.orderItem.status">Status</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="eCommerceApp.orderItem.product">Product</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.orderItem.product">Product</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="eCommerceApp.orderItem.order">Order</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.orderItem.order">Order</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -95,7 +96,7 @@ export class OrderItem extends React.Component<IOrderItemProps, IOrderItemState>
                   <td>{orderItem.quantity}</td>
                   <td>{orderItem.totalPrice}</td>
                   <td>
-                    <Translate contentKey={`eCommerceApp.OrderItemStatus.${orderItem.status}`} />
+                    <Translate contentKey={`storeApp.OrderItemStatus.${orderItem.status}`} />
                   </td>
                   <td>{orderItem.product ? <Link to={`product/${orderItem.product.id}`}>{orderItem.product.name}</Link> : ''}</td>
                   <td>{orderItem.order ? <Link to={`product-order/${orderItem.order.id}`}>{orderItem.order.code}</Link> : ''}</td>

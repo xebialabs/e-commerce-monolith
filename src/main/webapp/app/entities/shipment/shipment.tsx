@@ -61,10 +61,11 @@ export class Shipment extends React.Component<IShipmentProps, IShipmentState> {
     return (
       <div>
         <h2 id="shipment-heading">
-          <Translate contentKey="eCommerceApp.shipment.home.title">Shipments</Translate>
+          <Translate contentKey="storeApp.shipment.home.title">Shipments</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="eCommerceApp.shipment.home.createLabel">Create new Shipment</Translate>
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
+            <Translate contentKey="storeApp.shipment.home.createLabel">Create new Shipment</Translate>
           </Link>
         </h2>
         <div className="table-responsive">
@@ -75,16 +76,16 @@ export class Shipment extends React.Component<IShipmentProps, IShipmentState> {
                   <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('trackingCode')}>
-                  <Translate contentKey="eCommerceApp.shipment.trackingCode">Tracking Code</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.shipment.trackingCode">Tracking Code</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('date')}>
-                  <Translate contentKey="eCommerceApp.shipment.date">Date</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.shipment.date">Date</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('details')}>
-                  <Translate contentKey="eCommerceApp.shipment.details">Details</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.shipment.details">Details</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="eCommerceApp.shipment.invoice">Invoice</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.shipment.invoice">Invoice</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>

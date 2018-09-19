@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 
 import com.xebialabs.ecommerce.domain.Invoice;
 import com.xebialabs.ecommerce.domain.ProductOrder;
@@ -43,7 +43,7 @@ import com.xebialabs.ecommerce.domain.enumeration.PaymentMethod;
  * @see InvoiceResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class InvoiceResourceIntTest {
 
     private static final String DEFAULT_CODE = "AAAAAAAAAA";

@@ -61,10 +61,11 @@ export class Invoice extends React.Component<IInvoiceProps, IInvoiceState> {
     return (
       <div>
         <h2 id="invoice-heading">
-          <Translate contentKey="eCommerceApp.invoice.home.title">Invoices</Translate>
+          <Translate contentKey="storeApp.invoice.home.title">Invoices</Translate>
           <Link to={`${match.url}/new`} className="btn btn-primary float-right jh-create-entity" id="jh-create-entity">
-            <FontAwesomeIcon icon="plus" />&nbsp;
-            <Translate contentKey="eCommerceApp.invoice.home.createLabel">Create new Invoice</Translate>
+            <FontAwesomeIcon icon="plus" />
+            &nbsp;
+            <Translate contentKey="storeApp.invoice.home.createLabel">Create new Invoice</Translate>
           </Link>
         </h2>
         <div className="table-responsive">
@@ -75,28 +76,28 @@ export class Invoice extends React.Component<IInvoiceProps, IInvoiceState> {
                   <Translate contentKey="global.field.id">ID</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('code')}>
-                  <Translate contentKey="eCommerceApp.invoice.code">Code</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.invoice.code">Code</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('date')}>
-                  <Translate contentKey="eCommerceApp.invoice.date">Date</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.invoice.date">Date</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('details')}>
-                  <Translate contentKey="eCommerceApp.invoice.details">Details</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.invoice.details">Details</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('status')}>
-                  <Translate contentKey="eCommerceApp.invoice.status">Status</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.invoice.status">Status</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('paymentMethod')}>
-                  <Translate contentKey="eCommerceApp.invoice.paymentMethod">Payment Method</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.invoice.paymentMethod">Payment Method</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('paymentDate')}>
-                  <Translate contentKey="eCommerceApp.invoice.paymentDate">Payment Date</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.invoice.paymentDate">Payment Date</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th className="hand" onClick={this.sort('paymentAmount')}>
-                  <Translate contentKey="eCommerceApp.invoice.paymentAmount">Payment Amount</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.invoice.paymentAmount">Payment Amount</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th>
-                  <Translate contentKey="eCommerceApp.invoice.order">Order</Translate> <FontAwesomeIcon icon="sort" />
+                  <Translate contentKey="storeApp.invoice.order">Order</Translate> <FontAwesomeIcon icon="sort" />
                 </th>
                 <th />
               </tr>
@@ -115,10 +116,10 @@ export class Invoice extends React.Component<IInvoiceProps, IInvoiceState> {
                   </td>
                   <td>{invoice.details}</td>
                   <td>
-                    <Translate contentKey={`eCommerceApp.InvoiceStatus.${invoice.status}`} />
+                    <Translate contentKey={`storeApp.InvoiceStatus.${invoice.status}`} />
                   </td>
                   <td>
-                    <Translate contentKey={`eCommerceApp.PaymentMethod.${invoice.paymentMethod}`} />
+                    <Translate contentKey={`storeApp.PaymentMethod.${invoice.paymentMethod}`} />
                   </td>
                   <td>
                     <TextFormat type="date" value={invoice.paymentDate} format={APP_DATE_FORMAT} />

@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.service;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 import com.xebialabs.ecommerce.config.Constants;
 import com.xebialabs.ecommerce.domain.User;
 import com.xebialabs.ecommerce.repository.UserRepository;
@@ -38,7 +38,7 @@ import static org.mockito.Mockito.when;
  * @see UserService
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 @Transactional
 public class UserServiceIntTest {
 

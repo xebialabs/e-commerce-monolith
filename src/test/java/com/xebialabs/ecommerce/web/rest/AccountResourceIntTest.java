@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 import com.xebialabs.ecommerce.config.Constants;
 import com.xebialabs.ecommerce.domain.Authority;
 import com.xebialabs.ecommerce.domain.User;
@@ -48,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @see AccountResource
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class AccountResourceIntTest {
 
     @Autowired
@@ -382,7 +382,7 @@ public class AccountResourceIntTest {
         // Duplicate email - with uppercase email address
         ManagedUserVM userWithUpperCaseEmail = new ManagedUserVM();
         userWithUpperCaseEmail.setId(firstUser.getId());
-        userWithUpperCaseEmail.setLogin("test-register-duplicate-email-2");
+        userWithUpperCaseEmail.setLogin("test-register-duplicate-email-3");
         userWithUpperCaseEmail.setPassword(firstUser.getPassword());
         userWithUpperCaseEmail.setFirstName(firstUser.getFirstName());
         userWithUpperCaseEmail.setLastName(firstUser.getLastName());
@@ -398,7 +398,7 @@ public class AccountResourceIntTest {
                 .content(TestUtil.convertObjectToJsonBytes(userWithUpperCaseEmail)))
             .andExpect(status().isCreated());
 
-        Optional<User> testUser4 = userRepository.findOneByLogin("test-register-duplicate-email-2");
+        Optional<User> testUser4 = userRepository.findOneByLogin("test-register-duplicate-email-3");
         assertThat(testUser4.isPresent()).isTrue();
         assertThat(testUser4.get().getEmail()).isEqualTo("test-register-duplicate-email@example.com");
 

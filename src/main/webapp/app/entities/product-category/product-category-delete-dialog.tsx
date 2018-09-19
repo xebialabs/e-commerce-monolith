@@ -9,7 +9,7 @@ import { IProductCategory } from 'app/shared/model/product-category.model';
 import { IRootState } from 'app/shared/reducers';
 import { getEntity, deleteEntity } from './product-category.reducer';
 
-export interface IProductCategoryDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IProductCategoryDeleteDialogProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class ProductCategoryDeleteDialog extends React.Component<IProductCategoryDeleteDialogProps> {
   componentDidMount() {
@@ -33,18 +33,20 @@ export class ProductCategoryDeleteDialog extends React.Component<IProductCategor
         <ModalHeader toggle={this.handleClose}>
           <Translate contentKey="entity.delete.title">Confirm delete operation</Translate>
         </ModalHeader>
-        <ModalBody id="eCommerceApp.productCategory.delete.question">
-          <Translate contentKey="eCommerceApp.productCategory.delete.question" interpolate={{ id: productCategoryEntity.id }}>
+        <ModalBody id="storeApp.productCategory.delete.question">
+          <Translate contentKey="storeApp.productCategory.delete.question" interpolate={{ id: productCategoryEntity.id }}>
             Are you sure you want to delete this ProductCategory?
           </Translate>
         </ModalBody>
         <ModalFooter>
           <Button color="secondary" onClick={this.handleClose}>
-            <FontAwesomeIcon icon="ban" />&nbsp;
+            <FontAwesomeIcon icon="ban" />
+            &nbsp;
             <Translate contentKey="entity.action.cancel">Cancel</Translate>
           </Button>
           <Button id="jhi-confirm-delete-productCategory" color="danger" onClick={this.confirmDelete}>
-            <FontAwesomeIcon icon="trash" />&nbsp;
+            <FontAwesomeIcon icon="trash" />
+            &nbsp;
             <Translate contentKey="entity.action.delete">Delete</Translate>
           </Button>
         </ModalFooter>

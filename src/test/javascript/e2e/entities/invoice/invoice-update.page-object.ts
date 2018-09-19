@@ -1,7 +1,7 @@
 import { element, by, ElementFinder } from 'protractor';
 
 export default class InvoiceUpdatePage {
-  pageTitle: ElementFinder = element(by.id('eCommerceApp.invoice.home.createOrEditLabel'));
+  pageTitle: ElementFinder = element(by.id('storeApp.invoice.home.createOrEditLabel'));
   saveButton: ElementFinder = element(by.id('save-entity'));
   cancelButton: ElementFinder = element(by.id('cancel-save'));
   codeInput: ElementFinder = element(by.css('input#invoice-code'));
@@ -17,99 +17,99 @@ export default class InvoiceUpdatePage {
     return this.pageTitle;
   }
 
-  setCodeInput(code) {
-    this.codeInput.sendKeys(code);
+  async setCodeInput(code) {
+    await this.codeInput.sendKeys(code);
   }
 
-  getCodeInput() {
+  async getCodeInput() {
     return this.codeInput.getAttribute('value');
   }
 
-  setDateInput(date) {
-    this.dateInput.sendKeys(date);
+  async setDateInput(date) {
+    await this.dateInput.sendKeys(date);
   }
 
-  getDateInput() {
+  async getDateInput() {
     return this.dateInput.getAttribute('value');
   }
 
-  setDetailsInput(details) {
-    this.detailsInput.sendKeys(details);
+  async setDetailsInput(details) {
+    await this.detailsInput.sendKeys(details);
   }
 
-  getDetailsInput() {
+  async getDetailsInput() {
     return this.detailsInput.getAttribute('value');
   }
 
-  setStatusSelect(status) {
-    this.statusSelect.sendKeys(status);
+  async setStatusSelect(status) {
+    await this.statusSelect.sendKeys(status);
   }
 
-  getStatusSelect() {
+  async getStatusSelect() {
     return this.statusSelect.element(by.css('option:checked')).getText();
   }
 
-  statusSelectLastOption() {
-    this.statusSelect
+  async statusSelectLastOption() {
+    await this.statusSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
-  setPaymentMethodSelect(paymentMethod) {
-    this.paymentMethodSelect.sendKeys(paymentMethod);
+  async setPaymentMethodSelect(paymentMethod) {
+    await this.paymentMethodSelect.sendKeys(paymentMethod);
   }
 
-  getPaymentMethodSelect() {
+  async getPaymentMethodSelect() {
     return this.paymentMethodSelect.element(by.css('option:checked')).getText();
   }
 
-  paymentMethodSelectLastOption() {
-    this.paymentMethodSelect
+  async paymentMethodSelectLastOption() {
+    await this.paymentMethodSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
-  setPaymentDateInput(paymentDate) {
-    this.paymentDateInput.sendKeys(paymentDate);
+  async setPaymentDateInput(paymentDate) {
+    await this.paymentDateInput.sendKeys(paymentDate);
   }
 
-  getPaymentDateInput() {
+  async getPaymentDateInput() {
     return this.paymentDateInput.getAttribute('value');
   }
 
-  setPaymentAmountInput(paymentAmount) {
-    this.paymentAmountInput.sendKeys(paymentAmount);
+  async setPaymentAmountInput(paymentAmount) {
+    await this.paymentAmountInput.sendKeys(paymentAmount);
   }
 
-  getPaymentAmountInput() {
+  async getPaymentAmountInput() {
     return this.paymentAmountInput.getAttribute('value');
   }
 
-  orderSelectLastOption() {
-    this.orderSelect
+  async orderSelectLastOption() {
+    await this.orderSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  orderSelectOption(option) {
-    this.orderSelect.sendKeys(option);
+  async orderSelectOption(option) {
+    await this.orderSelect.sendKeys(option);
   }
 
   getOrderSelect() {
     return this.orderSelect;
   }
 
-  getOrderSelectedOption() {
+  async getOrderSelectedOption() {
     return this.orderSelect.element(by.css('option:checked')).getText();
   }
 
-  save() {
-    return this.saveButton.click();
+  async save() {
+    await this.saveButton.click();
   }
 
-  cancel() {
-    this.cancelButton.click();
+  async cancel() {
+    await this.cancelButton.click();
   }
 
   getSaveButton() {

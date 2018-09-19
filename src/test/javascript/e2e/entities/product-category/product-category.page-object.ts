@@ -7,8 +7,8 @@ export default class ProductCategoryComponentsPage {
   deleteButtons = element.all(by.css('div table .btn-danger'));
   title: ElementFinder = element(by.id('product-category-heading'));
 
-  clickOnCreateButton() {
-    return this.createButton.click();
+  async clickOnCreateButton() {
+    await this.createButton.click();
   }
 
   async clickOnLastDeleteButton() {
@@ -23,17 +23,17 @@ export default class ProductCategoryComponentsPage {
     return this.title;
   }
 
-  waitUntilLoaded() {
-    waitUntilDisplayed(this.deleteButtons.first());
+  async waitUntilLoaded() {
+    await waitUntilDisplayed(this.deleteButtons.first());
   }
 
-  waitUntilDeleteButtonsLength(length) {
-    waitUntilCount(this.deleteButtons, length);
+  async waitUntilDeleteButtonsLength(length) {
+    await waitUntilCount(this.deleteButtons, length);
   }
 }
 
 export class ProductCategoryDeleteDialog {
-  private dialogTitle: ElementFinder = element(by.id('eCommerceApp.productCategory.delete.question'));
+  private dialogTitle: ElementFinder = element(by.id('storeApp.productCategory.delete.question'));
   private confirmButton = element(by.id('jhi-confirm-delete-productCategory'));
 
   getDialogTitle() {

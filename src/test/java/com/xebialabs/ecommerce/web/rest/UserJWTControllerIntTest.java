@@ -1,6 +1,6 @@
 package com.xebialabs.ecommerce.web.rest;
 
-import com.xebialabs.ecommerce.ECommerceApp;
+import com.xebialabs.ecommerce.StoreApp;
 import com.xebialabs.ecommerce.domain.User;
 import com.xebialabs.ecommerce.repository.UserRepository;
 import com.xebialabs.ecommerce.security.jwt.TokenProvider;
@@ -32,7 +32,7 @@ import static org.hamcrest.Matchers.not;
  * @see UserJWTController
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ECommerceApp.class)
+@SpringBootTest(classes = StoreApp.class)
 public class UserJWTControllerIntTest {
 
     @Autowired

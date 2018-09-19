@@ -12,7 +12,7 @@ import { IOrderItem } from 'app/shared/model/order-item.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
 
-export interface IOrderItemDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: number }> {}
+export interface IOrderItemDetailProps extends StateProps, DispatchProps, RouteComponentProps<{ id: string }> {}
 
 export class OrderItemDetail extends React.Component<IOrderItemDetailProps> {
   componentDidMount() {
@@ -25,33 +25,33 @@ export class OrderItemDetail extends React.Component<IOrderItemDetailProps> {
       <Row>
         <Col md="8">
           <h2>
-            <Translate contentKey="eCommerceApp.orderItem.detail.title">OrderItem</Translate> [<b>{orderItemEntity.id}</b>]
+            <Translate contentKey="storeApp.orderItem.detail.title">OrderItem</Translate> [<b>{orderItemEntity.id}</b>]
           </h2>
           <dl className="jh-entity-details">
             <dt>
               <span id="quantity">
-                <Translate contentKey="eCommerceApp.orderItem.quantity">Quantity</Translate>
+                <Translate contentKey="storeApp.orderItem.quantity">Quantity</Translate>
               </span>
             </dt>
             <dd>{orderItemEntity.quantity}</dd>
             <dt>
               <span id="totalPrice">
-                <Translate contentKey="eCommerceApp.orderItem.totalPrice">Total Price</Translate>
+                <Translate contentKey="storeApp.orderItem.totalPrice">Total Price</Translate>
               </span>
             </dt>
             <dd>{orderItemEntity.totalPrice}</dd>
             <dt>
               <span id="status">
-                <Translate contentKey="eCommerceApp.orderItem.status">Status</Translate>
+                <Translate contentKey="storeApp.orderItem.status">Status</Translate>
               </span>
             </dt>
             <dd>{orderItemEntity.status}</dd>
             <dt>
-              <Translate contentKey="eCommerceApp.orderItem.product">Product</Translate>
+              <Translate contentKey="storeApp.orderItem.product">Product</Translate>
             </dt>
             <dd>{orderItemEntity.product ? orderItemEntity.product.name : ''}</dd>
             <dt>
-              <Translate contentKey="eCommerceApp.orderItem.order">Order</Translate>
+              <Translate contentKey="storeApp.orderItem.order">Order</Translate>
             </dt>
             <dd>{orderItemEntity.order ? orderItemEntity.order.code : ''}</dd>
           </dl>
@@ -60,7 +60,8 @@ export class OrderItemDetail extends React.Component<IOrderItemDetailProps> {
             <span className="d-none d-md-inline">
               <Translate contentKey="entity.action.back">Back</Translate>
             </span>
-          </Button>&nbsp;
+          </Button>
+          &nbsp;
           <Button tag={Link} to={`/entity/order-item/${orderItemEntity.id}/edit`} replace color="primary">
             <FontAwesomeIcon icon="pencil-alt" />{' '}
             <span className="d-none d-md-inline">
