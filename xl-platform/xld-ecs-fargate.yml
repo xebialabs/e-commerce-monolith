@@ -74,31 +74,20 @@ spec:
           subnets:
           - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1a'
           - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
-        # - name: ecommerce-monolith-ecs-db-security-group
-        #   description: DB security group
-        #   type: aws.rds.DBSecurityGroupSpec
-        #   securityGroupName: '{{username}}-ecommerce-monolith-ecs-db-security-group'
-        #   region: '{{region}}'
-        #   ec2SecurityGroups:
-        #   - '{{username}}-ecommerce-monolith-ecs-security-group'
         - name: ecommerce-monolith-mysql-db
           type: aws.rds.DBInstanceSpec
           region: '{{region}}'
-          engine: mysql
-          # engineVersion: MySQL 5.7.22
+          engine: mysql # aurora-mysql is a better choice but the XLD AWS plugin doesnt support provisioning DBCluster which is required for this
           licenseModel: general-public-license
           allocatedStorage: 20
           dbInstanceClass: db.t2.small
           dbInstanceIdentifier: store-mysql-db
           dbSubnetGroupName: '{{username}}-ecommerce-monolith-ecs-db-subnet-group'
-          # dbSecurityGroups: '{{username}}-ecommerce-monolith-ecs-db-security-group'
           vpcSecurityGroupIds:
           - 'Name:{{username}}-ecommerce-monolith-ecs-security-group'
-          # dbParameterGroupName: default.aurora-mysql5.7
-          # DBClusterParameterGroupName: default.aurora-mysql5.7
           dbName: store
           masterUsername: store
-          masterUserPassword: XebiaLabs2018 # this needs to be put in to SSM
+          masterUserPassword: XebiaLabs2018 # this is not secure, this needs to be put in to AWS SSM and read from the application
           boundTemplates:
           - "../ecommerce-monolith-ecs-dictionary"
         templates:
