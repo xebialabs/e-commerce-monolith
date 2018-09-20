@@ -27,7 +27,8 @@ spec:
           - 'Name:{{username}}-ecommerce-monolith-ecs-security-group'
           loadBalancers:
           - name: ecommerce-store-app-alb
-            targetGroupArn: Name:ecommerce-monolith-ecs-alb-targetgroup
+            type: aws.ecs.LoadBalancerSpec
+            targetGroupArn: Name:ecommerce-monolith-targetgroup
             containerName: ecommerce-store-app
             containerPort: 8080
           containerDefinitions:

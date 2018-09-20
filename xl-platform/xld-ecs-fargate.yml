@@ -70,6 +70,7 @@ spec:
         - name: ecommerce-monolith-targetgroup
           type: aws.elb.TargetGroupSpec
           targetName: ecommerce-monolith-targetgroup
+          targetType: ip
           region: '{{region}}'
           vpc: 'Name:{{username}}-ecommerce-monolith-ecs-vpc'
           protocol: http
