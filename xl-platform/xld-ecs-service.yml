@@ -25,6 +25,11 @@ spec:
           - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
           securityGroups:
           - 'Name:{{username}}-ecommerce-monolith-ecs-security-group'
+          loadBalancers:
+          - name: ecommerce-store-app-alb
+            targetGroupArn: Name:ecommerce-monolith-ecs-alb-targetgroup
+            containerName: ecommerce-store-app
+            containerPort: 8080
           containerDefinitions:
           - name: ecommerce-store-app
             containerName: ecommerce-store-app
@@ -43,7 +48,7 @@ spec:
               options:
                 awslogs-group: "/ecs/ecommerce"
                 awslogs-region: "{{region}}"
-                awslogs-stream-prefix: "ecs"
+                awslogs-stream-prefix: "ecs-ecommerce"
             environment:
               SPRING_PROFILES_ACTIVE: prod,swagger,aws
               SPRING_DATASOURCE_URL: jdbc:mysql://{{MYSQL_DB_ADDRESS}}:{{MYSQL_DB_PORT}}/store?useUnicode=true&characterEncoding=utf8&useSSL=false
