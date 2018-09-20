@@ -46,7 +46,7 @@ Parameters:
   AppDeployUsingPublicIP:
     Type: String
     Description: Should the Application be Deployed with a Public IP
-    Default: DISABLED
+    Default: ENABLED
   vpcCIDR:
     Type: String
     Description: CIDR IPv4 range for the VPC
