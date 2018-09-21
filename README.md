@@ -137,6 +137,23 @@ For more information refer to [Using Docker and Docker-Compose][], this page als
 
 To configure CI for your project, run the ci-cd sub-generator (`jhipster ci-cd`), this will let you generate configuration files for a number of Continuous Integration systems. Consult the [Setting up Continuous Integration][] page for more information.
 
+## XL Platform deployment
+
+The application is deployed to AWS ECS using XL Deploy. The deployment template is found under `./xl-platform/xld-ecs-*.yml`
+
+The deployment architecture is as below
+
+![deployment-architecture](https://github.com/xebialabs/e-commerce-monolith/blob/master/xl-platform/deployment-architecture-aurora.png)
+
+To apply the templates run
+```
+xl apply -f xl-platform/xld-ecs-infrastructure.yml
+xl apply -f xl-platform/xld-ecs-service.yml
+```
+
+Go to XL Deploy and deploy the infrastructure followed by the service
+
+
 [JHipster Homepage and latest documentation]: https://www.jhipster.tech
 [JHipster 5.3.4 archive]: https://www.jhipster.tech/documentation-archive/v5.3.4
 
