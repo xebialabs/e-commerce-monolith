@@ -143,7 +143,7 @@ The application is deployed to AWS ECS using XL Deploy. The deployment template 
 
 The deployment architecture is as below
 
-![deployment-architecture](https://github.com/xebialabs/e-commerce-monolith/blob/master/xl-platform/deployment-architecture-aurora.png)
+![deployment-architecture](https://github.com/xebialabs/e-commerce-monolith/blob/master/xl-platform/deployment-architecture.png)
 
 To apply the templates run
 ```
