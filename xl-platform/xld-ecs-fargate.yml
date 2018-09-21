@@ -105,6 +105,7 @@ spec:
           type: aws.rds.DBInstanceSpec
           region: '{{region}}'
           engine: mysql # aurora-mysql is a better choice but the XLD AWS plugin doesnt support provisioning DBCluster which is required for this
+          multiAZ: true
           licenseModel: general-public-license
           allocatedStorage: 20
           dbInstanceClass: db.t2.small
