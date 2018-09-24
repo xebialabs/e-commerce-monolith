@@ -51,7 +51,7 @@ spec:
                 awslogs-region: "{{region}}"
                 awslogs-stream-prefix: "ecs-ecommerce"
             environment:
-              SPRING_PROFILES_ACTIVE: prod,swagger,aws
+              SPRING_PROFILES_ACTIVE: prod,swagger
               SPRING_DATASOURCE_URL: jdbc:mysql://{{MYSQL_DB_ADDRESS}}:{{MYSQL_DB_PORT}}/store?useUnicode=true&characterEncoding=utf8&useSSL=false
               SPRING_DATASOURCE_USERNAME: store
               SPRING_DATASOURCE_PASSWORD: XebiaLabs2018 # this is not secure, this needs to be put in to AWS SSM and read from the application

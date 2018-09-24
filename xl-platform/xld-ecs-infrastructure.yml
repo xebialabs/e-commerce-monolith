@@ -92,6 +92,8 @@ spec:
           - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
           securityGroups:
           - 'Name:{{username}}-ecommerce-monolith-ecs-security-group'
+          boundTemplates:
+          - "../ecommerce-monolith-ecs-alb-dictionary"
 # RDS Database
         - name: ecommerce-monolith-ecs-db-subnet-group
           description: DB subnet group
@@ -124,5 +126,8 @@ spec:
           entries:
             MYSQL_DB_ADDRESS: '{{%address%}}'
             MYSQL_DB_PORT: '{{%finalPort%}}'
-            # ALB_DNS_NAME: '{{%dnsName%}}'
+        - name: ecommerce-monolith-ecs-alb-dictionary
+          type: template.udm.Dictionary
+          entries:
+            ALB_DNS_NAME: '{{%dnsName%}}'
 
