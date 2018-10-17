@@ -224,6 +224,8 @@ dependencies {
     }
     compile "io.springfox:springfox-bean-validators"
     compile "mysql:mysql-connector-java"
+    compile "com.h2database:h2"
+    compile "org.springframework.boot:spring-boot-devtools"
     liquibaseRuntime "mysql:mysql-connector-java"
     compile "org.mapstruct:mapstruct-jdk8:${mapstruct_version}"
     annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
