@@ -1,0 +1,169 @@
+apiVersion: xl-release/v1beta1
+kind: Configurations
+spec:
+- name: Fortify on Demand Server
+  type: fortifyOnDemand.Server
+  url: http://fortify.example.com
+- name: BlackDuck Server
+  type: blackduck.Server
+  url: http://blackduck.example.com
+- name: Sonar Server
+  type: sonar.Server
+  url: http://sonar.example.com
+---
+apiVersion: xl-release/v1beta1
+kind: Templates
+spec:
+- name: E-COMMERCE
+  type: xlrelease.Folder
+  children:
+  - name: e-commerce
+    type: xlrelease.Release
+    description: |
+      This XL Release template shows how to deploy and undeploy an application, based on microservices architecture, to AWS ECS using XL Deploy.
+    tags:
+    - e-commerce
+    - ECS
+    ### to be changed to secrets,plain text for now
+    scriptUsername: "admin"
+    scriptUserPassword: "admin"
+    variables:
+    - key: "ECSClusterName"
+      type: "xlrelease.StringVariable"
+      requiresValue: "false"
+      showOnReleaseStart: "false"
+    - key: "ECSExecutionRoleArn"
+      type: "xlrelease.StringVariable"
+      requiresValue: "false"
+      showOnReleaseStart: "false"
+    - key: "ECSClusterArn"
+      type: "xlrelease.StringVariable"
+      requiresValue: "false"
+      showOnReleaseStart: "false"
+    - key: "LoadBalancerDNSName"
+      type: "xlrelease.StringVariable"
+      requiresValue: "false"
+      showOnReleaseStart: "false"
+    phases:
+    - name: Provision Infrastructure
+      color: '#ff9e3b'
+      type: xlrelease.Phase
+      tasks:
+      - name: Provision e-commerce product in service catalog
+        type: xldeploy.Deploy
+        server: XL Deploy
+        deploymentPackage: ecommerce-monolith/ecommerce-sc/1.0
+        deploymentEnvironment: Environments/AWS-ECOMMERCE/AWS-Service-Catalog
+      - name: Update Infra Items
+        type: xlrelease.SequentialGroup
+        tasks:
+        - name: Get OutputVariables
+          type: xld.GetCITask
+          server: XL Deploy
+          ciID: Infrastructure/AWS/Service-Catalog-EU-WEST-1/ecommerce-infra
+          accept: "json"
+          variableMapping:
+             pythonScript.response: "${outputs}"
+        - name: Store OutputVariables to XLR variables
+          type: xlrelease.ScriptTask
+          script: |
+            import json
+            for k, v in json.loads(releaseVariables['outputs'])['outputVariables'].iteritems():
+                releaseVariables[k] = v
+        - name: Update CLuster name on ECS cluster
+          type: xld.UpdateCIProperty
+          server: XL Deploy
+          ciID: Infrastructure/AWS/ecommerceMonolithCluster
+          ciProperty: clusterName
+          propertyValue: "${ECSClusterName}"
+        - name: Update CLuster region on ECS cluster
+          type: xld.UpdateCIProperty
+          server: XL Deploy
+          ciID: Infrastructure/AWS/ecommerceMonolithCluster
+          ciProperty: region
+          propertyValue: "eu-west-1"
+        - name: Update CLuster ARN on ECS cluster
+          type: xld.UpdateCIProperty
+          server: XL Deploy
+          ciID: Infrastructure/AWS/ecommerceMonolithCluster
+          ciProperty: clusterArn
+          propertyValue: "${ECSClusterArn}"
+        - name: Update ECS Dictionary
+          type: xld.UpdateCIProperty
+          server: XL Deploy
+          ciID: Environments/AWS-ECOMMERCE/ECS Dictionary
+          ciProperty: entries
+          propertyValue: |
+                {"ECS_EXECUTION_ROLE":"${ECSExecutionRoleArn}","region":"eu-west-1"}
+    - name: Deploy e-commerce application
+      type: xlrelease.Phase
+      tasks:
+      - name: Deploy store app
+        type: xldeploy.Deploy
+        server: XL Deploy
+        deploymentPackage: ecommerce-monolith/ecommerce-app-service/1.0
+        deploymentEnvironment: Environments/AWS-ECOMMERCE/ECS
+    - name: Quality tests
+      type: xlrelease.Phase
+      tasks:
+      - name: Check code quality
+        type: sonar.checkCompliance
+        sonarServer: Sonar Server
+        resource: e-commerce
+        precondition: 'False'
+      - name: Check security compliance
+        type: fortifyOnDemand.checkCompliance
+        fortifyOnDemandServer: Fortify on Demand Server
+        projectName: e-commerce
+        projectVersion: '1.0'
+        precondition: 'False'
+      - name: Check open source software compliance
+        type: blackduck.checkCompliance
+        blackduckServer: BlackDuck Server
+        projectName: e-commerce
+        versionName: '1.0'
+        precondition: 'False'
+    - name: Functional tests
+      type: xlrelease.Phase
+      tasks:
+      - name: Run automated functional test
+        type: xlrelease.ScriptTask
+        script: |
+            import urllib2
+            import json
+            import time
+
+            time.sleep(60)
+            health_url = 'http://${LoadBalancerDNSName}/management/health'
+            def make_req(url):
+                req = urllib2.Request(url)
+
+                opener = urllib2.build_opener()
+                response = opener.open(req)
+                return json.loads(response.read())
+            resp = make_req(health_url)
+            if resp['status'] == 'UP':
+                print 'Application is in good health'
+            else:
+                print 'Application is not in good health'
+                exit(1)
+      - name: Verify application manually
+        type: xlrelease.Task
+        description: |
+          1. Open the following link in a new browser tab: http://${LoadBalancerDNSName}/
+          2. Verify that the application looks good:
+              * Title says "Welcome to XebiaLabs E-Commerce demo application!"
+              * XebiaLabs DevOps Platform diagram displays correctly
+              * Can log in with username "user" and password "user"
+        owner: admin
+    - name: Tear down
+      type: xlrelease.Phase
+      tasks:
+      - name: Undeploy e-commerce application (XL Deploy)
+        type: xldeploy.Undeploy
+        server: XL Deploy
+        deployedApplication: Environments/AWS-ECOMMERCE/ECS/ecommerce-app-service
+      - name: Deprovision e-commerce product (Service Catalog)
+        type: xldeploy.Undeploy
+        server: XL Deploy
+        deployedApplication: Environments/AWS-ECOMMERCE/AWS-Service-Catalog/ecommerce-sc
