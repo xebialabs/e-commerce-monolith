@@ -1,0 +1,223 @@
+AWSTemplateFormatVersion: 2010-09-09
+Parameters:
+  ResourceNamePrefix:
+    Type: String
+    Default: ecommerce-monolith
+
+Resources:
+  # VPC
+  ecommerceMonolithVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: 10.0.0.0/16
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'false'
+      InstanceTenancy: default
+      Tags:
+      - Key: Name
+        Value: !Sub "${ResourceNamePrefix}-vpc"
+  ecommerceMonolithInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+      - Key: Name
+        Value: !Sub "${ResourceNamePrefix}-igw"
+  ecommerceMonolithAttachGateway:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      VpcId: !Ref ecommerceMonolithVPC
+      InternetGatewayId: !Ref ecommerceMonolithInternetGateway
+
+  ecommerceMonolithSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref ecommerceMonolithVPC
+      CidrBlock: 10.0.0.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - '0'
+        - !GetAZs
+      Tags:
+      - Key: Name
+        Value: !Sub "${ResourceNamePrefix}-subnet-a"
+  ecommerceMonolithSubnetARouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref ecommerceMonolithVPC
+      Tags:
+      - Key: Name
+        Value: !Sub "${ResourceNamePrefix}-routetable-a"
+      - Key: Network
+        Value: Private
+  ecommerceMonolithSubnetARoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref ecommerceMonolithSubnetARouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref ecommerceMonolithInternetGateway
+  ecommerceMonolithSubnetARouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref ecommerceMonolithSubnetA
+      RouteTableId: !Ref ecommerceMonolithSubnetARouteTable
+
+  ecommerceMonolithSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      MapPublicIpOnLaunch: true
+      VpcId: !Ref ecommerceMonolithVPC
+      CidrBlock: 10.0.1.0/24
+      AvailabilityZone:
+        Fn::Select:
+        - '1'
+        - !GetAZs
+      Tags:
+      - Key: Name
+        Value: !Sub "${ResourceNamePrefix}-subnet-b"
+  ecommerceMonolithSubnetBRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref ecommerceMonolithVPC
+      Tags:
+      - Key: Name
+        Value: !Sub "${ResourceNamePrefix}-routetable-b"
+      - Key: Network
+        Value: Private
+  ecommerceMonolithSubnetBRoute:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref ecommerceMonolithSubnetBRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref ecommerceMonolithInternetGateway
+  ecommerceMonolithSubnetBRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      SubnetId: !Ref ecommerceMonolithSubnetB
+      RouteTableId: !Ref ecommerceMonolithSubnetBRouteTable
+
+  # Security
+  ecommerceMonolithRunRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ecs-tasks.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+  ecommerceMonolithRunPolicy:
+    Type: "AWS::IAM::Policy"
+    DependsOn:
+     - ecommerceMonolithRunRole
+     - ecommerceMonolithLogGroup
+    Properties:
+      PolicyName: "ecommerceMonolithRunRole"
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        # LogStream Persmissions
+          -
+            Effect: "Allow"
+            Action:
+             - "logs:PutLogEvents"
+             - "logs:CreateLogStream"
+            Resource: !GetAtt ecommerceMonolithLogGroup.Arn
+          - Effect: "Allow"
+            Action:
+             - "ssm:GetParameter"
+             - "ssm:GetParametersByPath"
+            Resource: !Join ['', ['arn:aws:ssm:',!Ref 'AWS::Region',':', !Ref 'AWS::AccountId', ':parameter/', !Ref 'AWS::StackName','/*' ]]
+      Roles:
+        - !Ref ecommerceMonolithRunRole
+  ecommerceMonolithInternalSG:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: Internal e-Commerce Monolith Container Security Group
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '8080'
+        ToPort: '8080'
+        CidrIp: 10.0.0.0/16
+      VpcId: !Ref ecommerceMonolithVPC
+      Tags:
+      - Key: Name
+        Value: !Sub "${ResourceNamePrefix}-internal-securitygroup"
+  ecommerceMonolithInternetSG:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: External e-Commerce Monolith Container Security Group for ALB
+      VpcId: !Ref ecommerceMonolithVPC
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: '80'
+        ToPort: '80'
+        CidrIp: 0.0.0.0/0
+      SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: '8080'
+        ToPort: '8080'
+        DestinationSecurityGroupId: !Ref ecommerceMonolithInternalSG
+      Tags:
+      - Key: Name
+        Value: !Sub "${ResourceNamePrefix}-internet-securitygroup"
+  ecommerceMonolithLogGroup:
+    Type: 'AWS::Logs::LogGroup'
+    Properties:
+      LogGroupName: !Sub "/${ResourceNamePrefix}/ecommerce-monolith"
+      RetentionInDays: 7
+
+  # Load balancer
+  ecommerceMonolithLoadBalancer:
+    Type: 'AWS::ElasticLoadBalancingV2::LoadBalancer'
+    Properties:
+      Name: !Sub "${ResourceNamePrefix}-loadbalancer"
+      Scheme: internet-facing
+      Type: application
+      Subnets:
+      - !Ref ecommerceMonolithSubnetA
+      - !Ref ecommerceMonolithSubnetB
+      SecurityGroups:
+      - !Ref ecommerceMonolithInternetSG
+  ecommerceMonolithALBTargetGroup:
+    Type: 'AWS::ElasticLoadBalancingV2::TargetGroup'
+    Properties:
+      Name: !Sub "${ResourceNamePrefix}-targetgroup"
+      Port: 80
+      Protocol: HTTP
+      TargetType: ip
+      VpcId: !Ref ecommerceMonolithVPC
+      HealthCheckIntervalSeconds: 30
+  ecommerceMonolithALBListener:
+    Type: 'AWS::ElasticLoadBalancingV2::Listener'
+    Properties:
+      DefaultActions:
+        - Type: forward
+          TargetGroupArn: !Ref ecommerceMonolithALBTargetGroup
+      LoadBalancerArn: !Ref ecommerceMonolithLoadBalancer
+      Port: '80'
+      Protocol: HTTP
+
+  # ECS
+  ecommerceMonolithCluster:
+    Type: 'AWS::ECS::Cluster'
+    Properties:
+      ClusterName: !Sub "${ResourceNamePrefix}-ecs-cluster"
+
+Outputs:
+  ECSExecutionRoleArn:
+    Description: ARN of the ECS execution role to use
+    Value: !GetAtt ecommerceMonolithRunRole.Arn
+  ECSClusterName:
+    Description: Name of the ECS Cluster'
+    Value: !Sub "${ResourceNamePrefix}-ecs-cluster"
+  ECSClusterArn:
+    Description: Name of the ECS Cluster'
+    Value: !GetAtt ecommerceMonolithCluster.Arn
+  LoadBalancerDNSName:
+    Description: The external DNS address of the load-balanancer
+    Value: !GetAtt ecommerceMonolithLoadBalancer.DNSName

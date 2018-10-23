@@ -175,3 +175,20 @@ Go to XL Deploy and deploy the infrastructure followed by the service
 [Protractor]: https://angular.github.io/protractor/
 [Leaflet]: http://leafletjs.com/
 [DefinitelyTyped]: http://definitelytyped.org/
+
+# Run the e-Commerce monolith demo with Service Catalog
+
+*N.B. 1:* The scenario will only run in eu-west-1 because the Service Catalog product it needs was only created there.
+*N.B. 2:* The scenario requires credentials with admin privileges in AWS.
+
+1. Check out branch `devops-as-code-workshop-3` from the `devops-as-code-workshop` repo
+1. Install the XL CLI as described in the README for the workshop
+1. Run the XL DevOps Platform with Docker Compose as described in the README for the workshop
+1. Apply the following files from this repo:
+    * `xebialabs/ecommerce-monolith-pipeline.xl.yaml`
+    * `xebialabs/ecommerce-monolith-application.xl.yaml`
+1. In XL Deploy, set the access key ID and secret acces key for the *Infrastructure/AWS* CI
+1. Run "Check connection" on the *Infrastructure/AWS* CI
+1. Create and start a release from the *e-commerce* template in the folder called *E-COMMERCE*
+    * Sometimes the "Undeploy e-commerce application" task will get stuck. In that case, log in to the ECS console,
+    select the ECS cluster *ecommerceMonolithCluster*, go to the *Tasks* section and stop the task that are still running.

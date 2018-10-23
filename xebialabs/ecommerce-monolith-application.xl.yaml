@@ -1,0 +1,109 @@
+apiVersion: xl-deploy/v1beta1
+kind: Applications
+spec:
+- name: ecommerce-monolith
+  type: core.Directory
+  children:
+    - name: ecommerce-sc
+      type: udm.Application
+      children:
+      - name: "1.0"
+        type: "udm.DeploymentPackage"
+        deployables:
+        - name: "ecommerce-infra"
+          type: "aws.servicecatalog.ProvisionedProductSpec"
+          productId: "prod-o32dqkwmyw2as"
+          provisionedProductName: "ecommerce-infra"
+          productVersion: "1.0"
+          provisioningParameters:
+            ResourceNamePrefix: "ecommerce-monolith"
+    - name: ecommerce-app-service
+      type: udm.Application
+      children:
+      - name: '1.0'
+        type: udm.DeploymentPackage
+        deployables:
+        - name: ecommerce-store-app
+          type: aws.ecs.ServiceSpec
+          serviceName: ecommerce-store-app
+          desiredCount: 1
+          launchType: FARGATE
+          networkMode: awsvpc
+          assignPublicIp: true
+          executionRole: '{{ECS_EXECUTION_ROLE}}'
+          cpu: 2048
+          memory: 4096
+          subnets:
+          - 'Name:ecommerce-monolith-subnet-a'
+          - 'Name:ecommerce-monolith-subnet-b'
+          securityGroups:
+          - 'Name:ecommerce-monolith-internal-securitygroup'
+          loadBalancers:
+          - name: ecommerce-monolith-app-alb
+            type: aws.ecs.LoadBalancerSpec
+            targetGroupArn: 'Name:ecommerce-monolith-targetgroup'
+            containerName: ecommerce-monolith-app
+            containerPort: 8080
+          containerDefinitions:
+          - name: ecommerce-monolith-app
+            containerName: ecommerce-monolith-app
+            type: aws.ecs.ContainerDefinitionSpec
+            image: xebialabsunsupported/ecommerce-monolith:latest-fargate
+            cpu: 1024
+            softMemoryLimit: 768
+            portMappings:
+            - name: port-mapping-8080
+              type: aws.ecs.PortSpec
+              containerPort: 8080
+            logConfiguration:
+            - name: cloudwatch-log-registry
+              type: aws.ecs.LogConfigurationSpec
+              logDriver: awslogs
+              options:
+                awslogs-group: "/ecommerce-monolith"
+                awslogs-region: "{{region}}"
+                awslogs-stream-prefix: "ecs-ecommerce"
+            environment:
+              SPRING_PROFILES_ACTIVE: dev,swagger
+---
+apiVersion: xl-deploy/v1beta1
+kind: Infrastructure
+spec:
+- name: Infrastructure/AWS
+  type: aws.Cloud
+  accesskey: unknown
+  accessSecret: unknown
+  children:
+  - name: Infrastructure/AWS/ecommerceMonolithCluster
+    type: aws.ecs.Cluster
+    region: unknown
+    clusterName: unknown
+    clusterArn: unknown
+  - name: "Service-Catalog-EU-WEST-1"
+    type: "aws.servicecatalog.Catalog"
+    region: "eu-west-1"
+    children: []
+---
+apiVersion: xl-deploy/v1beta1
+kind: Environments
+spec:
+- name: Environments/AWS-ECOMMERCE
+  type: core.Directory
+  children:
+   - name: Environments/AWS-ECOMMERCE/ECS Dictionary
+     type: udm.Dictionary
+     entries:
+       region: "eu-west-1"
+       ECS_EXECUTION_ROLE: unknown
+   - name: Environments/AWS-ECOMMERCE/ECS
+     type: udm.Environment
+     members:
+     - ~Infrastructure/AWS/ecommerceMonolithCluster
+     dictionaries:
+     - ~Environments/AWS-ECOMMERCE/ECS Dictionary
+   - name: "Environments/AWS-ECOMMERCE/AWS-Service-Catalog"
+     type: "udm.Environment"
+     members:
+     - "Infrastructure/AWS/Service-Catalog-EU-WEST-1"
+     children: []
+
