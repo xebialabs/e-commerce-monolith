@@ -1,0 +1,59 @@
+apiVersion: xl-deploy/v1beta1
+kind: Applications
+spec:
+- name: ecommerce-monolith
+  type: core.Directory
+  children:
+    - name: ecommerce-app-service
+      type: udm.Application
+      children:
+      - name: '1.0'
+        type: udm.DeploymentPackage
+        deployables:
+        - name: ecommerce-store-app
+          type: aws.ecs.ServiceSpec
+          serviceName: ecommerce-store-app
+          desiredCount: 1
+          launchType: FARGATE
+          networkMode: awsvpc
+          assignPublicIp: true
+          executionRole: 'arn:aws:iam::932770550094:role/ecsTaskExecutionRole'
+          cpu: 2048
+          memory: 4096
+          subnets:
+          - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1a'
+          - 'Name:{{username}}-ecommerce-monolith-ecs-subnet-ipv4-az-1b'
+          securityGroups:
+          - 'Name:{{username}}-ecommerce-monolith-ecs-security-group'
+          loadBalancers:
+          - name: ecommerce-store-app-alb
+            type: aws.ecs.LoadBalancerSpec
+            targetGroupArn: Name:ecommerce-monolith-targetgroup
+            containerName: ecommerce-store-app
+            containerPort: 8080
+          containerDefinitions:
+          - name: ecommerce-store-app
+            containerName: ecommerce-store-app
+            type: aws.ecs.ContainerDefinitionSpec
+            image: xebialabsunsupported/ecommerce-monolith
+            cpu: 1024
+            softMemoryLimit: 768
+            portMappings:
+            - name: port-mapping-8080
+              type: aws.ecs.PortSpec
+              containerPort: 8080
+            logConfiguration:
+            - name: cloudwatch-log-registry
+              type: aws.ecs.LogConfigurationSpec
+              logDriver: awslogs
+              options:
+                awslogs-group: "/ecs/ecommerce"
+                awslogs-region: "{{region}}"
+                awslogs-stream-prefix: "ecs-ecommerce"
+            environment:
+              SPRING_PROFILES_ACTIVE: prod,swagger
+              SPRING_DATASOURCE_URL: jdbc:mysql://{{MYSQL_DB_ADDRESS}}:{{MYSQL_DB_PORT}}/store?useUnicode=true&characterEncoding=utf8&useSSL=false
+              SPRING_DATASOURCE_USERNAME: store
+              SPRING_DATASOURCE_PASSWORD: XebiaLabs2018 # this is not secure, this needs to be put in to AWS SSM and read from the application
+              # JHIPSTER_SLEEP: 10 # gives time for the database to boot before the application
+              # JAVA_OPTS:  -Xmx256m -Xms256m

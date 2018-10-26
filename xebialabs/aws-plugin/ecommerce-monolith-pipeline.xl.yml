@@ -1,0 +1,106 @@
+apiVersion: xl-release/v1beta1
+kind: Templates
+spec:
+- name: E-COMMERCE
+  type: xlrelease.Folder
+  children:
+  - name: e-commerce-monolith
+    type: xlrelease.Release
+    description: |
+      This XL Release template shows how to deploy and undeploy a monolithic application to AWS ECS(Fargate) using XL Deploy.
+    tags:
+    - e-commerce
+    - ECS
+    - Fargate
+    ### to be changed to secrets,plain text for now
+    scriptUsername: "admin"
+    scriptUserPassword: "admin"
+    variables:
+    - key: "ALB_DNS_NAME"
+      type: "xlrelease.StringVariable"
+      requiresValue: "false"
+      showOnReleaseStart: "false"
+    phases:
+    - name: Provinsion Infrastructure
+      color: '#ff9e3b'
+      type: xlrelease.Phase
+      tasks:
+      # Provision Infra
+      - name: Provision Fargate cluster, RDS DB and Network resources
+        type: xldeploy.Deploy
+        server: XL Deploy
+        deploymentPackage: ecommerce-monolith/ecommerce-monolith-ecs-fargate-cluster/1.0
+        deploymentEnvironment: Environments/AWS
+
+    - name: Deploy e-commerce application
+      type: xlrelease.Phase
+      tasks:
+      # Deploy the application service
+      - name: Deploy application
+        type: xldeploy.Deploy
+        server: XL Deploy
+        deploymentPackage: ecommerce-monolith/ecommerce-app-service/1.0
+        deploymentEnvironment: Environments/AWS
+    # Get the application URL and verify
+    - name: Test
+      type: xlrelease.Phase
+      tasks:
+      - name: Get application load balancer public URL
+        type: xlrelease.SequentialGroup
+        tasks:
+        - name: Get XL Deploy Environmnet CI
+          type: xld.GetCITask
+          server: "XL Deploy"
+          accept: json
+          ciID: "Environments/ecommerce-monolith-ecs-alb-dictionary"
+          variableMapping:
+            pythonScript.response: "${ALB_DICTIONARY_CI}"
+        - name: "Get load balancer DNS"
+          type: "xlrelease.ScriptTask"
+          script: |
+            import json
+
+            data = json.loads('${ALB_DICTIONARY_CI}')
+            releaseVariables['ALB_DNS_NAME'] = data['entries']['ALB_DNS_NAME']
+          # end of script
+      - name: "Check e-commerce application health"
+        type: "xlrelease.ScriptTask"
+        script: |
+          import urllib2
+          import json
+          health_url = 'http://${ALB_DNS_NAME}/management/health'
+          def make_req(url):
+              req = urllib2.Request(url)
+
+              opener = urllib2.build_opener()
+              response = opener.open(req)
+              return json.loads(response.read())
+
+          resp = make_req(health_url)
+          if resp['status'] == 'UP':
+              print 'Application is in good health'
+          else:
+              print 'Application is not in good health'
+              exit(1)
+        # end of script
+      - name: Verify application
+        type: xlrelease.GateTask
+        team: Release Admin
+        description: |
+          The e-commerce app is now live on ECS!
+          Check out the web site and complete this task when done.
+
+          URL => http://${ALB_DNS_NAME}
+    # Cleanup and deprovision everything
+    - name: Undeploy Application
+      type: xlrelease.Phase
+      color: '#ff9e3b'
+      tasks:
+      - name: Undeploy application services
+        type: xldeploy.Undeploy
+        server: XL Deploy
+        deployedApplication: Environments/AWS/ecommerce-app-service
+      - name: Deprovision application infrastructure
+        type: xldeploy.Undeploy
+        server: XL Deploy
+        deployedApplication: Environments/AWS/ecommerce-monolith-ecs-fargate-cluster
