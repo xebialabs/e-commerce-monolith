@@ -192,3 +192,24 @@ Go to XL Deploy and deploy the infrastructure followed by the service
 1. Create and start a release from the *e-commerce* template in the folder called *E-COMMERCE*
     * Sometimes the "Undeploy e-commerce application" task will get stuck. In that case, log in to the ECS console,
     select the ECS cluster *ecommerceMonolithCluster*, go to the *Tasks* section and stop the task that are still running.
+
+# JHipster generated kubernetes configuration
+
+## Preparation
+
+You will need to push your image to a registry. If you have not done so, use the following commands to tag and push the images:
+
+```
+$ docker image tag store xebialabsunsupported/store
+$ docker push xebialabsunsupported/store
+```
+
+## Deployment
+
+You can deploy all your apps by running the below bash command:
+
+```
+./kubectl-apply.sh
+```
+
+## Exploring your services
